@@ -7,8 +7,7 @@ const User = require('./models/Users')
 const uri = process.env.MONGODB_URI
 
 const options = {
-  "useNewUrlParser": true,
-  "dbName": 'socialUsers',
+  "useNewUrlParser": true
 }
 
 const db = mongoose.connect(uri, options)
