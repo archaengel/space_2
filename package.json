@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon --exec 'heroku local' --signal SIGTERM"
   },
   "repository": "git@github.com:archaengel/space_2.git",
   "author": "Archaengel <god11341258@gmail.com>",
