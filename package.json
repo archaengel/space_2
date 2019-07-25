@@ -1,0 +1,10 @@
+{
+  "name": "space_2",
+  "version": "1.0.0",
+  "description": "An improved space",
+  "main": "index.js",
+  "repository": "git@github.com:archaengel/space_2.git",
+  "author": "Archaengel <god11341258@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
