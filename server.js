@@ -1,4 +1,18 @@
 const express = require('express')
+const mongoose = require('mongoose')
+
+const uri = process.env.MONGODB_URI
+
+const options = {
+  "useNewUrlParser": true,
+  "dbName": 'socialUsers',
+}
+
+mongoose.connect(uri, options)
+
+const db = mongoose.connect(uri, options)
+  .then(() => console.log('db connected'))
+  .catch(() => console.log(err.message))
 
 const app = express()
 
