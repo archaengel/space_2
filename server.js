@@ -20,6 +20,10 @@ const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
+app.get('/config.js', (req, res) => {
+  res.send("const NASA_API_KEY='"+process.env.NASA_API_KEY+"'")
+})
+
 app.post('/api/user/new', (req, res) => {
   let newUser = new User({
     username: req.body.username || req.query.username
@@ -34,8 +38,6 @@ app.post('/api/user/new', (req, res) => {
     }
   })
 })
-
-console.log(process.env.NASA_API_KEY)
 
 app.use(express.static('client/dist'))
 

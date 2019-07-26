@@ -1,15 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: "./src/index.html",
   filename: "./index.html"
 });
-
-const nasaKey = new webpack.DefinePlugin({
-  NASA_API_KEY: JSON.stringify(process.env.NASA_API_KEY)
-})
 
 module.exports = {
   output: {
@@ -37,5 +32,5 @@ module.exports = {
     hot: true,
     host: '0.0.0.0'
   },
-  plugins: [htmlPlugin, nasaKey]
+  plugins: [htmlPlugin]
 };
