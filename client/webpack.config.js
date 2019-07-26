@@ -7,7 +7,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
   filename: "./index.html"
 });
 
-const nasaKey = webpack.DefinePlugin({
+const nasaKey = new webpack.DefinePlugin({
   NASA_API_KEY: JSON.stringify(process.env.NASA_API_KEY)
 })
 
