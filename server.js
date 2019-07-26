@@ -35,6 +35,8 @@ app.post('/api/user/new', (req, res) => {
   })
 })
 
+console.log(process.env.NASA_API_KEY)
+
 app.use(express.static('client/dist'))
 
 app.get('*', (req, res) => {

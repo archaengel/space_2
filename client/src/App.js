@@ -1,8 +1,17 @@
 import React from 'react'
 
+import 'normalize.css'
+import './styles/app.css'
+
+import Header from './components/Header'
+import Body from './components/Body'
+
 const App = () => {
   return (
-    <h1>Hello to Maya!!!!!</h1>
+    <div>
+      <Header />
+      <Body />
+    </div>
   )
 }
 
