@@ -6,6 +6,10 @@ const htmlPlugin = new HtmlWebpackPlugin({
   filename: "./index.html"
 });
 
+const nasaKey = webpack.DefinePlugin({
+  NASA_API_KEY: JSON.stringify(process.env.NASA_API_KEY)
+})
+
 module.exports = {
   output: {
     path: __dirname + '/dist'
@@ -32,5 +36,5 @@ module.exports = {
     hot: true,
     host: '0.0.0.0'
   },
-  plugins: [htmlPlugin]
+  plugins: [htmlPlugin, nasaKey]
 };
