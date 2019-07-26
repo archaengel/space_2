@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getPlanets } from '../actions/planetActions'
+import { getPlanets, addPlanet } from '../actions/planetActions'
 import PropTypes from 'prop-types'
 
 class ShoppingList extends Component {
@@ -12,15 +12,29 @@ class ShoppingList extends Component {
   render() {
     const { planets } = this.props.planet
     return (
-      <ol>
-        { planets.map((p)=> <li>{p}</li>) }
-      </ol>
+      <React.Fragment>
+        <ol>
+          { planets.map((p)=> <li>{p}</li>) }
+        </ol>
+        <button
+          onClick={
+            (e) => {
+              e.preventDefault()
+              const name = prompt("Enter Planet")
+              if (name) {
+                this.props.addPlanet(name)
+              }
+            }
+          }
+        >Add Planet</button>
+      </React.Fragment>
     )
   }
 }
 
 ShoppingList.propTypes = {
   getPlanets: PropTypes.func.isRequired,
+  addPlanet: PropTypes.func.isRequired,
   planet: PropTypes.object.isRequired
 }
 
@@ -30,5 +44,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { getPlanets }
+  { getPlanets, addPlanet }
 )(ShoppingList)
