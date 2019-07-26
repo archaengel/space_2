@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { Provider } from 'react-redux'
+import store from './store'
+
 import 'normalize.css'
 import './styles/app.css'
 
@@ -8,10 +11,12 @@ import Body from './components/Body'
 
 const App = () => {
   return (
-    <div>
-      <Header />
-      <Body />
-    </div>
+    <Provider store={store}>
+      <div>
+        <Header />
+        <Body />
+      </div>
+    </Provider>
   )
 }
 

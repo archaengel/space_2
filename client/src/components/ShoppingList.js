@@ -1,24 +1,34 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getPlanets } from '../actions/planetActions'
+import PropTypes from 'prop-types'
 
 class ShoppingList extends Component {
-  constructor(props) {
-    super(props)
 
-    this.state = {
-      planets: [
-        "venus",
-        "mercury"
-      ]
-    }
+  componentDidMount() {
+    this.props.getPlanets()
   }
 
   render() {
+    const { planets } = this.props.planet
     return (
       <ol>
-        { this.state.planets.map((p)=> <li>{p}</li>) }
+        { planets.map((p)=> <li>{p}</li>) }
       </ol>
     )
   }
 }
 
-export default ShoppingList
+ShoppingList.propTypes = {
+  getPlanets: PropTypes.func.isRequired,
+  planet: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  planet: state.planet
+})
+
+export default connect(
+  mapStateToProps,
+  { getPlanets }
+)(ShoppingList)
