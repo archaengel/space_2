@@ -4,6 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 
 const User = require('./models/Users')
+const Planet = require('./models/Planets')
 
 const uri = process.env.MONGODB_URI
 
@@ -37,6 +38,23 @@ app.post('/api/user/new', (req, res) => {
       res.json(savedUser)
     }
   })
+})
+
+app.get('/api/planets', (req, res) => {
+  Planet.find().exec((err, planets) => {
+    if (err) {
+      res.end(err)
+    }
+    res.json(planets)
+  })
+})
+
+app.post('/api/planets', (req, res) => {
+  const newPlanet = new Planet({
+    name: req.body.name
+  })
+
+  newPlanet.save().then(planet => res.json(planet))
 })
 
 app.use(express.static('client/dist'))

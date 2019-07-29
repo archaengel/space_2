@@ -8,4 +8,4 @@ let PlanetSchema = new Schema({
   }
 })
 
-module.exports = Planet = mongoose.model('planet', PlanetSchema)
+module.exports = User = mongoose.model('planet', PlanetSchema)

@@ -20,11 +20,15 @@ class ShoppingList extends Component {
 
   handleSubmit(e){
     e.preventDefault()
-    const name = this.state.planetName
-    if (name) {
-      this.props.addPlanet(name)
+    const newPlanet = {
+      name: this.state.planetName
+    }
+    if (newPlanet) {
+      console.log(newPlanet.name)
+      this.props.addPlanet(newPlanet)
     }
     this.setState({planetName: ''})
+    this.props.getPlanets()
   }
 
   componentDidMount() {
@@ -39,10 +43,10 @@ class ShoppingList extends Component {
           {JSON.stringify(this.state)}
         </pre>
         <ol>
-          { planets.map((p)=> <li>{p}</li>) }
+          { planets.map((p)=> <li>{p.name}</li>) }
         </ol>
         <form onSubmit={this.handleSubmit} >
-          <label for='name' >Planet Name:</label>
+          <label htmlFor='name' >Planet Name:</label>
           <input type='text' id='name' onChange={this.handleChange} value={this.state.planetName}/>
           <input type='submit' value='add Planet' />
         </form>

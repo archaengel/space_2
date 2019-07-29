@@ -1,17 +1,15 @@
 import { GET_PLANETS, ADD_PLANET } from '../actions/types'
 
 const initialState = {
-  planets: [
-    "venus",
-    "mercury"
-  ]
+  planets: []
 }
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PLANETS:
       return {
-        ...state
+        ...state,
+        planets: [...action.payload]
       }
     case ADD_PLANET:
       return {
