@@ -13,6 +13,7 @@ class ShoppingList extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.onDeleteClick = this.onDeleteClick.bind(this)
+    this.boxRef = React.createRef()
   }
 
   handleChange(e) {
@@ -29,7 +30,10 @@ class ShoppingList extends Component {
       this.props.addPlanet(newPlanet)
     }
     this.setState({planetName: ''})
-    this.props.getPlanets()
+    console.log(this.boxRef.current.scrollIntoView)
+    this.boxRef.current.scrollIntoView({
+      block: 'center'
+    })
   }
 
   onDeleteClick(id) {
@@ -61,7 +65,7 @@ class ShoppingList extends Component {
         <form onSubmit={this.handleSubmit} >
           <label htmlFor='name' >Planet Name:</label>
           <input type='text' id='name' onChange={this.handleChange} value={this.state.planetName}/>
-          <input type='submit' value='add Planet' />
+          <input type='submit' value='add Planet' ref={this.boxRef} />
         </form>
       </React.Fragment>
     )
