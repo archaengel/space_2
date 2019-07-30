@@ -1,13 +1,15 @@
 import React from 'react'
 
 import PostList from './PostList'
-import ShoppingList from './ShoppingList'
+import PlanetList from './PlanetList'
+import PlanetForm from './PlanetForm'
 
 const Body = () => {
   return (
     <React.Fragment>
       <PostList />
-      <ShoppingList />
+      <PlanetList />
+      <PlanetForm />
     </React.Fragment>
   )
 }
