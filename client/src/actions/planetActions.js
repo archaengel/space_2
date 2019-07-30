@@ -14,7 +14,6 @@ export const getPlanets = () => (dispatch) => {
 }
 
 export const addPlanet = (planet) => (dispatch) => {
-  console.log(Object.keys(planet))
   axios
     .post('/api/planets', planet)
     .then(res => {
