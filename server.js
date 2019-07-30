@@ -57,6 +57,13 @@ app.post('/api/planets', (req, res) => {
   newPlanet.save().then(planet => res.json(planet))
 })
 
+app.delete('/api/planets/:id', (req, res) => {
+  Planet
+    .deleteOne({ _id: req.params.id })
+    .then(res => res.json({success: true}))
+    .catch(err => res.json({success: false}))
+})
+
 app.use(express.static('client/dist'))
 
 app.get('*', (req, res) => {
