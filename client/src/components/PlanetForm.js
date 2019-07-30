@@ -45,14 +45,16 @@ class PlanetForm extends Component {
           <label
             className="planet-input-label"
             htmlFor='name'
-          >Planet Name:</label>
-          <input
-            className="planet-input"
-            type='text'
-            id='name'
-            onChange={this.handleChange}
-            value={this.state.planetName}
-          />
+          >
+            Planet Name: 
+            <input
+              className="planet-input"
+              type='text'
+              id='name'
+              onChange={this.handleChange}
+              value={this.state.planetName}
+            />
+            </label>
           <input
             className="planet-button"
             type='submit'

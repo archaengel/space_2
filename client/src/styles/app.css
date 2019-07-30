@@ -134,6 +134,39 @@ body {
   transform: skew(0, -20deg);
 }
 
+.planet-form {
+  background: #bfa4b3;
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  padding: 1rem;
+  border-radius: 3px;
+  align-items: center;
+}
+
+.planet-input {
+  background: #bfa4b3;
+  border: none;
+  border-bottom: solid #8a5673 0.2rem;
+  margin-left: 0.5rem;
+}
+
+.planet-button {
+  background: #8a5673;
+  color: #eec;
+  font-weight: 600;
+  width: 33vw;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 3px;
+  border: none;
+}
+
+.planet-input-label {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+}
+
 .post-footer {
   color: #333;
   font-weight: 100;
