@@ -191,4 +191,12 @@ body {
   .api-card-wrapper {
     background: tomato;
   }
+
+  .planet-form {
+    background: tomato;
+  }
+
+  .planet-input {
+    background: tomato;
+  }
 }
