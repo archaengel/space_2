@@ -16,9 +16,12 @@ class PlanetList extends Component {
   render() {
     const { planets } = this.props.planet
     return (
-      <ul>
-        { planets.map((p) => (
-            <PlanetListItem {...p}/>
+      <ul className="planet-list" >
+        <h2 className="planet-list-title">Planet List</h2>
+        { planets.length === 0
+          ? <p>You don't have any planets yet, try adding some...</p>
+          : planets.map((p) => (
+            <PlanetListItem key={p._id} {...p}/>
           )) 
         }
       </ul>

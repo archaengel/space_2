@@ -1,7 +1,17 @@
+:root {
+  --bg: #eec;
+  --desktop-primary: #bfa4b3;
+  --desktop-secondary: #8a5673;
+  --mobile-primary: tomato;
+  --mobile-secondary: #f03b1a;
+  --danger: #bb2509;
+  --danger-light: #ffa595;
+}
+
 html, body {
   max-width: 100vw;
   width: 100%;
-  background: #eec;
+  background: var(--bg);
   font-family: "IBM Plex Sans", sans-serif;
 }
 
@@ -12,7 +22,7 @@ h2 {
 /* Header */
 
 header {
-  background: #eec;
+  background: var(--bg);
   padding: 1rem 0;
   height: 20vh;
   width: 100vw;
@@ -35,7 +45,7 @@ header > nav {
   margin: 1rem;
   transform: skew(0, -20deg);
   font-weight: bold;
-  text-shadow: 1rem 0.4rem 0.1rem tomato;
+  text-shadow: 1rem 0.4rem 0.1rem var(--mobile-primary);
   font-size: 4rem;
 }
 
@@ -92,7 +102,7 @@ body {
 }
 
 .api-card-wrapper {
-  background: #bfa4b3;
+  background: var(--desktop-primary);
   margin: 0 auto 1rem;
   display: flex;
   flex-direction: column;
@@ -123,7 +133,7 @@ body {
 }
 
 .blur {
-  background: linear-gradient(60deg, palegreen, #bfa4b3, skyblue);
+  background: linear-gradient(60deg, palegreen, var(--desktop-primary), skyblue);
   max-width: 100%;
   width: 30rem;
   height: 20rem;
@@ -134,26 +144,52 @@ body {
   transform: skew(0, -20deg);
 }
 
+.delete-button {
+  background: var(--danger);
+  border-radius: 3px;
+  border: none;
+  padding: 0.5rem;
+  line-height: 0.5;
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.delete-button:hover {
+  background: var(--danger-light);
+  cursor: pointer;
+}
+
 .planet-form {
-  background: #bfa4b3;
+  background: var(--desktop-primary);
   display: flex;
   flex-direction: column;
-  margin: 0 2.5vw;
+  margin: 0 2.5vw 1rem;
   padding: 1rem;
   border-radius: 3px;
   align-items: center;
 }
 
+.form-state {
+  background: var(--desktop-primary);
+  margin: 1rem 2.5vw; 
+  padding: 1rem;
+  font-weight: 600;
+  color: var(--bg);
+}
+
 .planet-input {
-  background: #bfa4b3;
+  background: var(--desktop-primary);
+  color: var(--bg);
+  font-weight: 600;
   border: none;
-  border-bottom: solid #8a5673 0.2rem;
+  border-bottom: solid var(--desktop-secondary) 0.2rem;
   margin-left: 0.5rem;
 }
 
 .planet-button {
-  background: #8a5673;
-  color: #eec;
+  background: var(--desktop-secondary);
+  color: var(--bg);
   font-weight: 600;
   width: 33vw;
   padding: 0.5rem;
@@ -165,6 +201,47 @@ body {
 .planet-input-label {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
+}
+
+.planet-list {
+  background: var(--desktop-primary);
+  padding: 0 1rem 1rem;
+  margin: 0 2.5vw;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.planet-list-title {
+  font-size: 1rem;
+}
+
+.planet-list p {
+  font-weight: 600;
+  color: var(--bg);
+  font-size: 1rem;
+  background: var(--desktop-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+}
+
+.planet-list-item {
+  background: var(--desktop-secondary);
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  width: 70vw;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  align-items: center;
+  color: var(--bg);
+}
+
+.planet-list-item:last-child {
+  margin-bottom: 0;
 }
 
 .post-footer {
@@ -189,19 +266,27 @@ body {
 /* small screen */
 @media (max-width: 600px) {
   .api-card-wrapper {
-    background: tomato;
+    background: var(--mobile-primary);
   }
 
   .planet-form {
-    background: tomato;
+    background: var(--mobile-primary);
   }
 
   .planet-input {
-    background: tomato;
-    border-bottom-color: #F03B1A;
+    background: var(--mobile-primary);
+    border-bottom-color: var(--mobile-secondary);
   }
 
   .planet-button {
-    background: #f03b1a;
+    background: var(--mobile-secondary);
+  }
+
+  .planet-list {
+    background: var(--mobile-primary);
+  }
+
+  .planet-list-item {
+    background: var(--mobile-secondary);
   }
 }
