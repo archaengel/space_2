@@ -12,6 +12,12 @@ class ApiContainer extends React.Component {
     } 
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const nextSrc = nextState.apiSrc
+    const currSrc = this.state.apiSrc
+    return (nextSrc !== currSrc)
+  }
+
   callApi() {
     fetch(
       `https://api.nasa.gov/planetary/apod?` +
