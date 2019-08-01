@@ -13,8 +13,11 @@ class ApiContainer extends React.Component {
   }
 
   callApi() {
-    fetch(`https://api.nasa.gov/planetary/apod?date=${ this.state.date }&api_key=${ NASA_API_KEY }`)
-      // .then(res => console.log(res))
+    fetch(
+      `https://api.nasa.gov/planetary/apod?` +
+      `date=${ this.state.date }&` +
+      `api_key=${ NASA_API_KEY }`
+      )
       .then(res => res.json())
       .then(res => this.setState({
         apiSrc: res.url,
