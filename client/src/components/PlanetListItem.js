@@ -15,10 +15,11 @@ class PlanetListItem extends Component {
   }
 
   render() {
+    const {name, _id} = this.props
     return (
-      <li className="planet-list-item" key={this.props._id}>
-        {this.props.name}
-        <button onClick={this.onDeleteClick.bind(this, this.props._id)}>
+      <li className="planet-list-item" >
+        {name}
+        <button className="delete-button" onClick={this.onDeleteClick.bind(this, _id)}>
           &times;
         </button>
       </li>

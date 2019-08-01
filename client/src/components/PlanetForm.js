@@ -38,21 +38,24 @@ class PlanetForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <pre>
+        <pre className="form-state">
           {JSON.stringify(this.state)}
         </pre>
         <form onSubmit={this.handleSubmit} className="planet-form">
           <label
             className="planet-input-label"
             htmlFor='name'
-          >Planet Name:</label>
-          <input
-            className="planet-input"
-            type='text'
-            id='name'
-            onChange={this.handleChange}
-            value={this.state.planetName}
-          />
+          >
+            Planet Name: 
+            <input
+              className="planet-input"
+              type='text'
+              id='name'
+              placeholder='Enter a new planet name...'
+              onChange={this.handleChange}
+              value={this.state.planetName}
+            />
+            </label>
           <input
             className="planet-button"
             type='submit'
