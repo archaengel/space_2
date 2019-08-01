@@ -174,8 +174,10 @@ body {
   background: var(--desktop-primary);
   margin: 1rem 2.5vw; 
   padding: 1rem;
+  font-family: "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.5rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #333;
 }
 
 .planet-input {
@@ -187,6 +189,10 @@ body {
   margin-left: 0.5rem;
 }
 
+.planet-input::placeholder {
+  font-weight: 400;
+}
+
 .planet-button {
   background: var(--desktop-secondary);
   color: var(--bg);
@@ -196,11 +202,13 @@ body {
   margin-top: 0.5rem;
   border-radius: 3px;
   border: none;
+  text-transform: uppercase;
 }
 
 .planet-input-label {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
+  color: var(--bg);
 }
 
 .planet-list {
@@ -218,12 +226,15 @@ body {
 }
 
 .planet-list p {
-  font-weight: 600;
+  font-weight: 400;
   color: var(--bg);
   font-size: 1rem;
   background: var(--desktop-secondary);
   padding: 0.5rem 1rem;
   border-radius: 3px;
+  margin: 0;
+  width: 95%;
+  text-align: center;
 }
 
 .planet-list-item {
@@ -231,7 +242,7 @@ body {
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  width: 70vw;
+  width: 95%;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -286,7 +297,15 @@ body {
     background: var(--mobile-primary);
   }
 
+  .planet-list p {
+    background: var(--mobile-secondary);
+  }
+
   .planet-list-item {
     background: var(--mobile-secondary);
+  }
+
+  .form-state {
+    background: var(--mobile-primary);
   }
 }

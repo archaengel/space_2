@@ -51,6 +51,7 @@ class PlanetForm extends Component {
               className="planet-input"
               type='text'
               id='name'
+              placeholder='Enter a new planet name...'
               onChange={this.handleChange}
               value={this.state.planetName}
             />

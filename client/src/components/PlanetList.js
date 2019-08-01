@@ -19,7 +19,7 @@ class PlanetList extends Component {
       <ul className="planet-list" >
         <h2 className="planet-list-title">Planet List</h2>
         { planets.length === 0
-          ? <p>You don't have any planets yet, try adding some...</p>
+          ? <p>You don't have any planets yet. Try adding some...</p>
           : planets.map((p) => (
             <PlanetListItem key={p._id} {...p}/>
           )) 
