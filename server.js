@@ -9,6 +9,7 @@ const path = require('path')
 // Import routes
 const usersRouter = require('./routes/api/users')
 const planetsRouter = require('./routes/api/planets')
+const authRouter = require('./routes/api/auth')
 
 const Planet = require('./models/Planets')
 
@@ -34,6 +35,7 @@ app.get('/config.js', (req, res) => {
 // Add api routers
 app.use('/api/users', usersRouter)
 app.use('/api/planets', planetsRouter)
+app.use('/api/auth', authRouter)
 
 app.use(express.static('client/dist'))
 

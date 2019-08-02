@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
       // Create salt and hash
       bcrypt.genSalt(13, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) return res.status(400).json({ msg: 'Error saving user' })
+          if (err) return res.status(400).json({ msg: 'Error hashing password' })
 
           newUser.password = hash
           newUser.save()
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
                 process.env.JWT_SECRET,
                 { expiresIn: 3600 },
                 (err, token) => {
-                  if (err) return res.status(400).json({ msg: 'Error saving user' })
+                  if (err) throw err
 
                   res.json({
                     token,
@@ -52,9 +52,13 @@ router.post('/', (req, res) => {
                 }
               )
             })
+            .catch(err => {
+              res.status(400).json({ msg: 'Error saving user' })
+            })
         })
       })
     })
+    .catch(err => res.status(400).json({msg: 'Error creating user' }))
 })
 
 module.exports = router
