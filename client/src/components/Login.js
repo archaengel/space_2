@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../actions/authActiions'
+import { login } from '../actions/authActions'
 import PropTypes from 'prop-types'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
@@ -12,10 +12,12 @@ class Login extends Component {
       email: '',
       password: ''
     }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange() {
-    this.setState(state => {
+  handleChange(e) {
+    this.setState({
       [e.target.name]: e.target.value
     })
   }
@@ -29,9 +31,33 @@ class Login extends Component {
 
   render() {
     return (
-      <p>
-        Login
-      </p>
+      <React.Fragment>
+        <pre className='form-state' >
+          {JSON.stringify(this.state)}
+        </pre>
+        <form>
+          <label htmlFor='email'>
+            Email: 
+            <input
+              type='email'
+              id='email'
+              name='email'
+              onChange={this.handleChange}
+              value={this.state.email}
+            />
+          </label>
+          <label htmlFor='password'>
+            Password: 
+            <input
+              type='password'
+              id='password'
+              name='password'
+              onChange={this.handleChange}
+              value={this.state.password}
+            />
+          </label>
+        </form>
+      </React.Fragment>
     )
   }
 }

@@ -12,7 +12,7 @@ import {
 } from './types'
 
 // Check token and load user
-export const loadUser = () = (dispatch, getState) => {
+export const loadUser = () => (dispatch, getState) => {
   // Set user loading
   dispatch({ type: USER_LOADING })
 
