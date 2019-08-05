@@ -35,6 +35,17 @@ class PlanetForm extends Component {
     this.boxRef.current.scrollIntoView()
   }
 
+  // Update if name is input or planet is added, but not deleted
+  shouldComponentUpdate(nextProps, nextState) {
+    const nextPlanets = nextProps.planet.planets
+    const currPlanets = this.props.planet.planets
+    const nextName = nextState.planetName
+    const currName = this.state.planetName
+    const isLonger = nextPlanets.length > currPlanets.length
+    const isChanged = currName !== nextName
+    return (isLonger || isChanged)
+  }
+
   render() {
     return (
       <React.Fragment>

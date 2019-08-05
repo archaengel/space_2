@@ -69,7 +69,7 @@ export const login = ({ email, password }) => dispatch => {
   }
 
   // Request body
-  const body = { name, email }
+  const body = { email, password }
 
   axios
     .post('/api/auth', body, config)

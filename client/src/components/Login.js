@@ -14,6 +14,7 @@ class Login extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
@@ -23,7 +24,7 @@ class Login extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault
+    e.preventDefault()
     const { email, password } = this.state
 
     this.props.login({ email, password })
@@ -33,12 +34,19 @@ class Login extends Component {
     return (
       <React.Fragment>
         <pre className='form-state' >
-          {JSON.stringify(this.state)}
+          {JSON.stringify(this.state, null, 2)}
         </pre>
-        <form>
-          <label htmlFor='email'>
+        <form
+          className='planet-form'
+          onSubmit={this.handleSubmit}
+        >
+          <label
+            className='planet-input-label'
+            htmlFor='email'
+          >
             Email: 
             <input
+              className='planet-input'
               type='email'
               id='email'
               name='email'
@@ -46,9 +54,13 @@ class Login extends Component {
               value={this.state.email}
             />
           </label>
-          <label htmlFor='password'>
+          <label
+            className='planet-input-label'
+            htmlFor='password'
+          >
             Password: 
             <input
+              className='planet-input'
               type='password'
               id='password'
               name='password'
@@ -56,6 +68,11 @@ class Login extends Component {
               value={this.state.password}
             />
           </label>
+          <input
+            className='planet-button'
+            type='submit'
+            value='login'
+          />
         </form>
       </React.Fragment>
     )
