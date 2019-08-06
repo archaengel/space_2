@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { register, loadUser } from '../actions/authActions'
+import { register } from '../actions/authActions'
 import PropTypes from 'prop-types'
 import { Redirect, Link } from 'react-router-dom'
 import Login from './Login'
@@ -30,10 +30,6 @@ class Register extends Component {
     const { name, email, password } = this.state
 
     this.props.register({ name, email, password })
-  }
-
-  componentDidUpdate() {
-    this.props.loadUser()
   }
 
   render() {
@@ -107,12 +103,11 @@ class Register extends Component {
 }
 
 Register.propTypes = {
-  register: PropTypes.func.isRequired,
-  loadUser: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { register, loadUser })(Register)
+export default connect(mapStateToProps, { register })(Register)
