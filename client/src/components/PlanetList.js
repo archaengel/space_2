@@ -9,6 +9,12 @@ class PlanetList extends Component {
     super(props)
   }
 
+  shouldComponentUpdate(nextProps) {
+    const nextPlanets = nextProps.planet.planets
+    const currPlanets = this.props.planet.planets
+    return (nextPlanets.length !== currPlanets.length)
+  }
+
   componentDidMount() {
     this.props.getPlanets()
   }

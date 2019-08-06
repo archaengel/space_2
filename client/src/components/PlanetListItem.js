@@ -10,6 +10,10 @@ class PlanetListItem extends Component {
     this.onDeleteClick = this.onDeleteClick.bind(this)
   }
 
+  shouldComponentUpdate(nextProps) {
+    return (nextProps._id !== this.props._id)
+  }
+
   onDeleteClick(id) {
     this.props.deletePlanet(id)
   }
