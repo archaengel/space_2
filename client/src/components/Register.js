@@ -94,10 +94,12 @@ class Register extends Component {
             value='register'
           />
         </form>
-        <p>
-          Already have an account?
-          <Link to='/login' >Sign In</Link>
-        </p>
+        <footer className='register-footer'>
+          <p>
+            Already have an account?
+          </p>
+          <Link to='/login' >Sign In.</Link>
+        </footer>
         { this.props.auth.isAuthenticated ? <Redirect to='/' /> : null }
       </React.Fragment>
     )

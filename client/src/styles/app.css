@@ -66,6 +66,11 @@ header > nav {
   float: right;
 }
 
+.register-footer {
+  font-weight: 200;
+  text-align: center;
+}
+
 .nav-link {
   text-decoration: none;
   text-transform: uppercase;
@@ -287,36 +292,27 @@ body {
 
 /* small screen */
 @media (max-width: 600px) {
-  .api-card-wrapper {
-    background: var(--mobile-primary);
-  }
-
-  .planet-form {
-    background: var(--mobile-primary);
-  }
-
+  .api-card-wrapper,
+  .planet-list,
+  .form-state,
+  .planet-form,
   .planet-input {
     background: var(--mobile-primary);
-    border-bottom-color: var(--mobile-secondary);
-  }
-
-  .planet-button {
-    background: var(--mobile-secondary);
-  }
-
-  .planet-list {
-    background: var(--mobile-primary);
-  }
-
-  .planet-list p {
-    background: var(--mobile-secondary);
-  }
-
-  .planet-list-item {
-    background: var(--mobile-secondary);
   }
 
   .form-state {
-    background: var(--mobile-primary);
+    font-size: 0.8rem;
+    letter-spacing: 0.2rem;
+  }
+
+  .planet-input {
+    border-bottom-color: var(--mobile-secondary);
+  }
+
+  .planet-button,
+  .planet-list p,
+  .planet-list-item,
+  .nav-button {
+    background: var(--mobile-secondary);
   }
 }
