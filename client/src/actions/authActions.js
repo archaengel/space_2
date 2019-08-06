@@ -37,7 +37,9 @@ export const register = ({ name, email, password }) => dispatch => {
 
   // Config headers
   const config = {
-    'Content-type': 'application/json'
+    headers: {
+      'Content-type': 'application/json'
+    }
   }
 
   // Request body
@@ -54,7 +56,7 @@ export const register = ({ name, email, password }) => dispatch => {
     .catch(err => {
       console.log('register Error: ' + err)
       dispatch({
-        type: REGISTER_SUCCESS
+        type: REGISTER_FAIL
       })
     })
 }

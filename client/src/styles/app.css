@@ -37,6 +37,7 @@ header > nav {
   display: flex;
   width: 80%;
   justify-content: space-between;
+  align-items: center;
   font-family: "IBM Plex Sans", sans-serif;
 }
 
@@ -191,6 +192,16 @@ body {
 
 .planet-input::placeholder {
   font-weight: 400;
+}
+
+.nav-button {
+  background: var(--desktop-secondary);
+  color: var(--bg);
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 3px;
+  border: none;
+  text-transform: uppercase;
 }
 
 .planet-button {

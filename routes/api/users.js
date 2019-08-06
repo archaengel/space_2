@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
       // Create salt and hash
       bcrypt.genSalt(13, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) return res.status(400).json({ msg: 'Error hashing password' })
+          if (err) throw err
 
           newUser.password = hash
           newUser.save()

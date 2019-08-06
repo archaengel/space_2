@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { login, loadUser } from '../actions/authActions'
+import { register, loadUser } from '../actions/authActions'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
+import Login from './Login'
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      name: '',
       email: '',
       password: '',
     }
@@ -25,9 +27,12 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { email, password } = this.state
+    const { name, email, password } = this.state
 
-    this.props.login({ email, password })
+    this.props.register({ name, email, password })
+  }
+
+  componentDidUpdate() {
     this.props.loadUser()
   }
 
@@ -41,6 +46,20 @@ class Login extends Component {
           className='planet-form'
           onSubmit={this.handleSubmit}
         >
+          <label
+            className='planet-input-label'
+            htmlFor='name'
+          >
+            Name: 
+            <input
+              className='planet-input'
+              name='name'
+              id='name'
+              type='text'
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
+          </label>
           <label
             className='planet-input-label'
             htmlFor='email'
@@ -72,17 +91,21 @@ class Login extends Component {
           <input
             className='planet-button'
             type='submit'
-            value='login'
+            value='register'
           />
         </form>
+        <p>
+          Already have an account?
+          <Link to='/login' >Sign In</Link>
+        </p>
         { this.props.auth.isAuthenticated ? <Redirect to='/' /> : null }
       </React.Fragment>
     )
   }
 }
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
+Register.propTypes = {
+  register: PropTypes.func.isRequired,
   loadUser: PropTypes.func.isRequired
 }
 
@@ -90,4 +113,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { login, loadUser })(Login)
+export default connect(mapStateToProps, { register, loadUser })(Register)

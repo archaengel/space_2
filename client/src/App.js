@@ -9,6 +9,7 @@ import './styles/app.css'
 
 import Header from './components/Header'
 import Body from './components/Body'
+import Register from './components/Register'
 import Login from './components/Login'
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <Header />
           <Switch>
             <Route exact path='/' component={Body} />
+            <Route path='/register' component={Register} />
             <Route path='/login' component={Login} />
           </Switch>
         </div>

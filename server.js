@@ -23,7 +23,7 @@ const dbOptions = {
 
 const db = mongoose.connect(uri, dbOptions)
   .then(() => console.log('db connected'))
-  .catch(() => console.log(err.message))
+  .catch((err) => console.log(err.message))
 
 
 app.use(express.json())
