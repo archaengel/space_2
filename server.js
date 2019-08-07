@@ -10,8 +10,7 @@ const path = require('path')
 const usersRouter = require('./routes/api/users')
 const planetsRouter = require('./routes/api/planets')
 const authRouter = require('./routes/api/auth')
-
-const Planet = require('./models/Planets')
+const postRouter = require('./routes/api/posts')
 
 // Connect to db
 const uri = process.env.MONGODB_URI
@@ -36,6 +35,7 @@ app.get('/config.js', (req, res) => {
 app.use('/api/users', usersRouter)
 app.use('/api/planets', planetsRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/posts', postRouter)
 
 app.use(express.static('client/dist'))
 
