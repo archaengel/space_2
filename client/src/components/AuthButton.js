@@ -1,27 +1,39 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { loadUser, logout } from '../actions/authActions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-const AuthButton = (props) => {
-  return (
-    <div className='auth-button-wrapper'>
-      {
-        props.auth.isAuthenticated ?
-        <button
-          className='nav-button'
-          onClick={props.logout}
-        >
-          logout
-        </button> :
-        <>
-          <Link className="nav-link" to='/register'>Sign Up</Link>
-          <Link className="nav-link" to='/login'>Sign In</Link>
-        </>
-      }
-    </div>
-  )
+class AuthButton extends Component{
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    this.props.loadUser()
+  }
+
+  render() {
+    const { auth, logout } = this.props
+    return (
+      <div className='auth-button-wrapper'>
+        {
+          auth.isAuthenticated ?
+          <button
+            className='nav-button'
+            onClick={logout}
+          >
+            logout
+          </button> :
+          <>
+            <Link className="nav-link" to='/register'>Sign Up</Link>
+            <Link className="nav-link" to='/login'>Sign In</Link>
+          </>
+        }
+      </div>
+    )
+  }
+
 }
 
 AuthButton.propTypes = {

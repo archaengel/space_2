@@ -13,8 +13,9 @@ router.post('/', auth, (req, res) => {
   const {
     title,
     body,
-    authorId
   } = req.body
+
+  const authorId = req.user.id
 
   const newPost = new Post({
     title,
@@ -22,18 +23,18 @@ router.post('/', auth, (req, res) => {
     authorId
   })
 
-  // Save new user
+  // Save new post
   newPost
     .save()
-    .then( savedUser => {
-      res.json(savedUser)
+    .then( savePost => {
+      res.json(savePost)
     })
     .catch( err => {
       res.status(400).json({ msg: 'Error saving post' })
     })
 })
 
-// @route   GET /api/posts/:user
+// @route   GET /api/posts/user
 // @desc    Get array of posts by user
 // @access  Private
 router.get('/user', auth, (req, res) => {
@@ -44,6 +45,16 @@ router.get('/user', auth, (req, res) => {
       }
       res.json(returnedPosts)
     })
+})
+
+// @route   DELETE /api/posts/:id
+// @desc    Delete post
+// @access  Private
+router.delete('/:id', auth, (req, res) => {
+  Post
+    .deleteOne({ _id: req.params.id })
+    .then(res => res.json({ success: true }))
+    .catch(err => res.json({ success: false }))
 })
 
 module.exports = router

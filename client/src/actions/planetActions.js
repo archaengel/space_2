@@ -5,7 +5,6 @@ export const getPlanets = () => (dispatch) => {
   axios
     .get('/api/planets')
     .then(res => {
-      console.log('res: ' + res.data)
       dispatch({
         type: GET_PLANETS,
         payload: res.data
