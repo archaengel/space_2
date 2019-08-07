@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions/authActions'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -74,6 +74,12 @@ class Login extends Component {
             value='login'
           />
         </form>
+        <footer className='auth-footer'>
+          <p>
+            Don't have an account yet?
+          </p>
+          <Link to='/register' >Sign Up.</Link>
+        </footer>
         { this.props.auth.isAuthenticated ? <Redirect to='/' /> : null }
       </React.Fragment>
     )
