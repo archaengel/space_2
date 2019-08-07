@@ -1,13 +1,17 @@
 import React from 'react'
 
 import Navigation from './Navigation'
+import AuthButton from './AuthButton'
 
 const Header = () => {
   return (
-    <header> 
-      <i className="logo">LOGO</i>
-      <Navigation />
-    </header>
+    <>
+      <AuthButton />
+      <header> 
+        <i className="logo">LOGO</i>
+        <Navigation />
+      </header>
+    </>
   )
 }
 

@@ -90,7 +90,7 @@ class Register extends Component {
             value='register'
           />
         </form>
-        <footer className='register-footer'>
+        <footer className='auth-footer'>
           <p>
             Already have an account?
           </p>

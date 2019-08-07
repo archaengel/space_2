@@ -42,7 +42,7 @@ header > nav {
 }
 
 .logo {
-  height: 10vh; 
+  height: 12rem; 
   margin: 1rem;
   transform: skew(0, -20deg);
   font-weight: bold;
@@ -58,6 +58,18 @@ header > nav {
   float: right;
 }
 
+.auth-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  float: right;
+}
+
+.auth-button-wrapper > .nav-link,
+.auth-button-wrapper > .nav-button {
+  margin-right: 0.7rem;
+  margin-top: 0.7rem;
+}
+
 .logout-link {
   text-decoration: none;
   text-transform: uppercase;
@@ -66,7 +78,7 @@ header > nav {
   float: right;
 }
 
-.register-footer {
+.auth-footer {
   font-weight: 200;
   text-align: center;
 }

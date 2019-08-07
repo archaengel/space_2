@@ -42,7 +42,8 @@ PlanetList.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  planet: state.planet
+  planet: state.planet,
+  auth: state.auth
 })
 
 export default connect(
