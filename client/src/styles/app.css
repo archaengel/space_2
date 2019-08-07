@@ -162,7 +162,8 @@ body {
   transform: skew(0, -20deg);
 }
 
-.delete-button {
+.delete-button,
+.delete-post-button {
   background: var(--danger);
   border-radius: 3px;
   border: none;
@@ -173,7 +174,12 @@ body {
   font-size: 1.5rem;
 }
 
-.delete-button:hover {
+.delte-post-button {
+  padding-right: 1rem;
+}
+
+.delete-button:hover,
+.delete-post-button:hover {
   background: var(--danger-light);
   cursor: pointer;
 }
@@ -265,13 +271,12 @@ body {
   text-align: center;
 }
 
-.planet-list-item {
+.planet-list-item,
+.post-list-item {
   background: var(--desktop-secondary);
   margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   width: 95%;
-  text-align: center;
   display: flex;
   justify-content: space-between;
   font-weight: 600;
@@ -279,7 +284,27 @@ body {
   color: var(--bg);
 }
 
-.planet-list-item:last-child {
+.planet-list-item {
+  flex-direction: row;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.post-body {
+  justify-text: left;
+}
+
+.post-list-item {
+  flex-direction: column;
+  padding: 0.5rem 1rem 0;
+}
+
+.post-title {
+  padding: 0.5rem;
+}
+
+.planet-list-item:last-child,
+.post-list-item:last-child {
   margin-bottom: 0;
 }
 
@@ -324,6 +349,7 @@ body {
   .planet-button,
   .planet-list p,
   .planet-list-item,
+  .post-list-item,
   .nav-button {
     background: var(--mobile-secondary);
   }

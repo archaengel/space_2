@@ -19,16 +19,21 @@ class PostListItem extends Component {
   }
 
   render() {
-    const {title, body, _id} = this.props
+    const {title, body, createdAt, _id} = this.props
     return (
       <li className="post-list-item" >
-        <h2 className='post-title'>{title}</h2>
+        <h3 className='post-title'>{title}</h3>
         <p className='post-body'>
           {body}
         </p>
-        <button className="delete-post-button" onClick={this.onDeleteClick.bind(this, _id)}>
-          &times;
-        </button>
+        <footer className='post-footer'>
+          <div className='post-date'>
+            {createdAt}
+          </div>
+          <button className="delete-post-button" onClick={this.onDeleteClick.bind(this, _id)}>
+            &times;
+          </button>
+        </footer>
       </li>
     )
   }

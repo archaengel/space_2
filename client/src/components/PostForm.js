@@ -93,7 +93,7 @@ class PostForm extends Component {
           <input
             className="planet-button"
             type='submit'
-            value='add Planet'
+            value='add Post'
             ref={this.boxRef}
           />
         </form>
