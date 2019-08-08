@@ -57,39 +57,41 @@ class PostForm extends Component {
     return (
       <React.Fragment>
         <pre className="form-state">
-          {JSON.stringify(this.state)}
+          {JSON.stringify(this.state, null, 2)}
         </pre>
-        <form onSubmit={this.handleSubmit} className="planet-form">
+        <form onSubmit={this.handleSubmit} className="post-form">
           <label
-            className="planet-input-label"
+            className="post-input-label"
             htmlFor='title'
           >
-            Title: 
-            <input
-              className="planet-input"
-              type='text'
-              id='title'
-              name='title'
-              placeholder='Title'
-              onChange={this.handleChange}
-              value={this.state.title}
-            />
+            Title:
           </label>
+          <input
+            className="post-input"
+            type='text'
+            id='title'
+            name='title'
+            placeholder='***'
+            onChange={this.handleChange}
+            value={this.state.title}
+            required
+          />
           <label
-            className='planet-input-label'
+            className='post-textarea-label'
             htmlFor='body'
           >
-          Body: 
-          <input
-            className='planet-input'
+            Body:
+          </label>
+          <textarea
+            className='post-textarea'
             id='body'
             name='body'
-            type='text-area'
-            placeholder='Body'
+            placeholder='***'
             onChange={this.handleChange}
             value={this.state.body}
+            rows='10'
+            required
           />
-          </label>
           <input
             className="planet-button"
             type='submit'

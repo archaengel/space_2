@@ -28,7 +28,10 @@ class PostList extends Component {
           ))
         }
       </ul>) :
-      <p>Log in to see your diary</p>
+      (<ul className='planet-list'>
+        <h2>Diary</h2>
+        <p className='post-list-unauth'>Log in to see your diary.</p>
+      </ul>)
     )
   }
 }

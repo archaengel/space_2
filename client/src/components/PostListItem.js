@@ -23,6 +23,7 @@ class PostListItem extends Component {
     return (
       <li className="post-list-item" >
         <h3 className='post-title'>{title}</h3>
+        <h6 className='post-date-byline'>{createdAt}</h6>
         <p className='post-body'>
           {body}
         </p>
