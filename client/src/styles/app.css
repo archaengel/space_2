@@ -399,6 +399,7 @@ body {
 .delete-post-link {
   background: transparent;
   border: none;
+  align-self: center;
 }
 
 .edit-link,
