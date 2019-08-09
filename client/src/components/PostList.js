@@ -4,6 +4,8 @@ import { getPosts } from '../actions/postActions'
 import { loadUser } from '../actions/authActions'
 import PropTypes from 'prop-types'
 
+import { Link, withRouter } from 'react-router-dom'
+
 import PostListItem from './PostListItem'
 
 class PostList extends Component {
@@ -17,7 +19,8 @@ class PostList extends Component {
 
   render() {
     const { posts } = this.props.post
-    const  { isAuthenticated, user } = this.props.auth
+    const { location } = this.props
+    const { isAuthenticated, user } = this.props.auth
     return (
      isAuthenticated ? 
       (<ul className='planet-list'>
@@ -27,6 +30,10 @@ class PostList extends Component {
             <PostListItem key={post._id} {...post}/>
           ))
         }
+        <Link to={{
+          pathname: '/posts/edit',
+          state: { from: location }
+        }}>Create New Entry</Link>
       </ul>) :
       (<ul className='planet-list'>
         <h2>Diary</h2>
@@ -47,6 +54,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(
-  mapStateToProps,
-  { getPosts, loadUser })(PostList)
+export default withRouter(connect( mapStateToProps, { getPosts, loadUser })(PostList))

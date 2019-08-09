@@ -3,12 +3,15 @@ import { connect } from 'react-redux'
 import { addPost } from '../actions/postActions'
 import PropTypes from 'prop-types'
 
+import { Redirect } from 'react-router-dom'
+
 class PostForm extends Component {
   constructor(props){
     super(props)
     this.state = {
       title: '',
-      body: ''
+      body: '',
+      redirectToReferrer: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -29,11 +32,7 @@ class PostForm extends Component {
     if (newPost) {
       this.props.addPost(newPost)
     }
-    this.setState({title: '', body: ''})
-  }
-
-  componentDidUpdate() {
-    this.boxRef.current.scrollIntoView()
+    this.setState({title: '', body: '', redirectToReferrer: true})
   }
 
   // Update if name is input or planet is added, but not deleted
@@ -54,6 +53,9 @@ class PostForm extends Component {
   }
 
   render() {
+    const { redirectToReferrer } = this.state
+    const { from } = this.props.location.state || { from: { pathname: '/' }}
+    if (redirectToReferrer) return <Redirect to={from} />
     return (
       <React.Fragment>
         <pre className="form-state">

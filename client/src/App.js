@@ -11,6 +11,9 @@ import Header from './components/Header'
 import Body from './components/Body'
 import Register from './components/Register'
 import Login from './components/Login'
+import PlanetList from './components/PlanetList'
+import PostList from './components/PostList'
+import PostForm from './components/PostForm'
 
 const App = () => {
   return (
@@ -22,6 +25,9 @@ const App = () => {
             <Route exact path='/' component={Body} />
             <Route path='/register' component={Register} />
             <Route path='/login' component={Login} />
+            <Route exact path='/posts' component={PostList} />
+            <Route path='/posts/edit' component={PostForm} />
+            <Route path='/planets' component={PlanetList} />
           </Switch>
         </div>
       </Provider>

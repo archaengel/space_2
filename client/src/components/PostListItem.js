@@ -22,19 +22,31 @@ class PostListItem extends Component {
     const {title, body, createdAt, _id} = this.props
     return (
       <li className="post-list-item" >
-        <h3 className='post-title'>{title}</h3>
-        <h6 className='post-date-byline'>{createdAt}</h6>
-        <p className='post-body'>
-          {body}
-        </p>
-        <footer className='post-footer'>
-          <div className='post-date'>
-            {createdAt}
+        <header className='post-header'>
+          <hgroup className='post-hgroup'>
+            <h3 className='post-title'>{title}</h3>
+            <h6 className='post-date-byline'>{createdAt}</h6>
+          </hgroup>
+          <div
+            className="delete-post-button dropdown"
+          >
+            <input
+              type='checkbox'
+              id='mobile-menu-check'
+            />
+            <label htmlFor='mobile-menu-check'>
+              <span className='drop-trigger'>***</span>
+            </label>
+            <ul className='drop-menu'>
+              <li
+                onClick={this.onDeleteClick.bind(this, _id)}
+              >delete</li>
+            </ul>
           </div>
-          <button className="delete-post-button" onClick={this.onDeleteClick.bind(this, _id)}>
-            &times;
-          </button>
-        </footer>
+        </header>
+        <pre className='post-body'>
+          {body}
+        </pre>
       </li>
     )
   }

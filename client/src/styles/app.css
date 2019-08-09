@@ -21,7 +21,7 @@ h2 {
 
 /* Header */
 
-header {
+.home-header {
   background: var(--bg);
   padding: 1rem 0;
   height: 10rem;
@@ -164,6 +164,7 @@ body {
 
 .delete-button {
   background: var(--danger);
+  color: var(--bg);
 }
 
 .delete-button,
@@ -172,24 +173,28 @@ body {
   border: none;
   padding: 0.5rem;
   line-height: 0.5;
-  color: var(--bg);
   font-weight: 600;
   font-size: 1.5rem;
 }
 
 .delete-post-button {
-  margin-right: 1rem;
   background: white;
+  color: var(--desktop-secondary);
+  display: flex;
 }
 
-.delete-button:hover,
-.delete-post-button:hover {
-  background: var(--danger-light);
+.delete-post-button:hover,
+.delete-button:hover {
   cursor: pointer;
 }
 
+
+.delete-button:hover {
+  background: var(--danger-light);
+}
+
 .delete-post-button:hover {
-  background: var(--mobile-secondary);
+  background: var(--desktop-secondary);
   color: white;
 }
 
@@ -213,10 +218,17 @@ body {
   font-weight: 600;
   color: #333;
   border-radius: 3px;
+  text-align: left;
 }
 
 .planet-input {
   margin-left: 0.5rem;
+}
+
+.post-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .planet-input,
@@ -325,7 +337,7 @@ body {
 
 .post-list-item {
   background: white;
-  border: solid var(--desktop-primary);
+  border: solid var(--desktop-secondary);
 }
 
 .planet-list-item {
@@ -341,15 +353,74 @@ body {
   margin: 0 1rem 1rem;
   font-size: 0.8rem;
   font-weight: 400;
+  width: 100%;
   color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .post-list-item {
   flex-direction: column;
   padding: 0.5rem 1rem 0;
+  overflow: hidden;
+}
+
+.drop-menu {
+  display: none;
+  position: absolute;
+  list-style: none;
+  right: 2.5vw;
+  bottom: 0;
+  background: var(--desktop-secondary);
+  color: white;
+  z-index: 9;
+  padding: 0.5rem;
+  width: 5rem;
+}
+
+.drop-menu > li {
+  padding: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.drop-menu li ~ li {
+  border-top: rgba(0, 0, 1, 0.3) solid 3px;
+}
+
+.drop-menu li:first-child {
+  border-radius: 3px 3px 0 0;
+}
+
+.drop-menu li:last-child {
+  border-radius: 0 0 3px 3px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown:hover .drop-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#mobile-menu-check {
+  display: none;
+}
+
+.post-hgroup {
+  overflow: scroll;
 }
 
 .post-title {
+  color: var(--desktop-secondary);
   padding: 0.5rem;
   margin: 1rem 1rem 0;
   font-size: 1.5rem;
@@ -403,7 +474,6 @@ body {
 
   .delete-post-button {
     color: var(--mobile-secondary);
-    border: solid var(--mobile-secondary);
   }
 
   .post-title {
@@ -430,7 +500,28 @@ body {
   .planet-list-item,
   .post-list,
   .post-list-unauth,
+  .delete-post-button:hover,
   .nav-button {
     background: var(--mobile-secondary);
+  }
+
+  #mobile-menu-check:checked ~ label > .drop-trigger:after {
+    content: "CANCEL";
+    z-index: 80;
+    color: white;
+    width: 100%;
+    left: -1rem;
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  #mobile-menu-check:checked ~ .drop-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 1, 0.7) 0 0 1rem 99rem;
+    background: rgba(0, 0, 1, 0.7);
+    width: 75vw;
   }
 }
