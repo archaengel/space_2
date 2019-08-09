@@ -31,10 +31,11 @@ class PostListItem extends Component {
             className="delete-post-button dropdown"
           >
             <input
+              className='mobile-menu-check'
               type='checkbox'
-              id='mobile-menu-check'
+              id={_id}
             />
-            <label htmlFor='mobile-menu-check'>
+            <label htmlFor={_id}>
               <span className='drop-trigger'>***</span>
             </label>
             <ul className='drop-menu'>

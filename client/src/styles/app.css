@@ -365,6 +365,17 @@ body {
   overflow: hidden;
 }
 
+.create-post-button {
+  text-decoration: none;
+  padding: 0.5rem;
+  font-weight: 600;
+  background: var(--desktop-secondary);
+  border-radius: 3px;
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: uppercase;
+  color: var(--bg);
+}
+
 .drop-menu {
   display: none;
   position: absolute;
@@ -376,6 +387,7 @@ body {
   z-index: 9;
   padding: 0.5rem;
   width: 5rem;
+  border-radius: 3px;
 }
 
 .drop-menu > li {
@@ -411,7 +423,7 @@ body {
   justify-content: center;
 }
 
-#mobile-menu-check {
+.mobile-menu-check {
   display: none;
 }
 
@@ -500,12 +512,21 @@ body {
   .planet-list-item,
   .post-list,
   .post-list-unauth,
-  .delete-post-button:hover,
+  .create-post-button,
   .nav-button {
     background: var(--mobile-secondary);
   }
 
-  #mobile-menu-check:checked ~ label > .drop-trigger:after {
+  .delete-post-button:hover {
+    background: white;
+    color: var(--mobile-secondary);
+  }
+
+  .dropdown:hover .drop-menu {
+    display: none;
+  }
+
+  input[type=checkbox]:checked ~ label > .drop-trigger:after {
     content: "CANCEL";
     z-index: 80;
     color: white;
@@ -516,7 +537,7 @@ body {
     font-weight: 400;
   }
 
-  #mobile-menu-check:checked ~ .drop-menu {
+  input[type=checkbox]:checked ~ .drop-menu {
     display: flex;
     flex-direction: column;
     justify-content: center;

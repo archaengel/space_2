@@ -30,7 +30,9 @@ class PostList extends Component {
             <PostListItem key={post._id} {...post}/>
           ))
         }
-        <Link to={{
+        <Link
+          className='create-post-button'
+          to={{
           pathname: '/posts/edit',
           state: { from: location }
         }}>Create New Entry</Link>
