@@ -57,4 +57,20 @@ router.delete('/:id', auth, (req, res) => {
     .catch(err => res.json({ success: false }))
 })
 
+// @route   PATCH /api/posts/edit
+// @desc    Edit post
+// @access  Public
+router.patch('/edit', auth, (req, res) => {
+  Post
+    .findByIdAndUpdate(
+      req.body._id,
+      { title: req.body.title, body: req.body.body },
+      { new: true }
+    )
+    .then(updatedPost => {
+      res.json(updatedPost)
+    })
+    .catch(err => res.status(400).json({ msg: 'Error updating post' }))
+})
+
 module.exports = router

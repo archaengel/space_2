@@ -13,7 +13,8 @@ import Register from './components/Register'
 import Login from './components/Login'
 import PlanetList from './components/PlanetList'
 import PostList from './components/PostList'
-import PostForm from './components/PostForm'
+import PostAddForm from './components/PostAddForm'
+import PostEditForm from './components/PostEditForm'
 
 const App = () => {
   return (
@@ -26,7 +27,8 @@ const App = () => {
             <Route path='/register' component={Register} />
             <Route path='/login' component={Login} />
             <Route exact path='/posts' component={PostList} />
-            <Route path='/posts/edit' component={PostForm} />
+            <Route path='/posts/add' component={PostAddForm} />
+            <Route path='/posts/edit' component={PostEditForm} />
             <Route path='/planets' component={PlanetList} />
           </Switch>
         </div>

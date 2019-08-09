@@ -17,7 +17,8 @@ const uri = process.env.MONGODB_URI
 
 const dbOptions = {
   "useNewUrlParser": true,
-  "useCreateIndex": true
+  "useCreateIndex": true,
+  "useFindAndModify": false
 }
 
 const db = mongoose.connect(uri, dbOptions)

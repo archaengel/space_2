@@ -24,7 +24,6 @@ export const addPlanet = (planet) => (dispatch) => {
 }
 
 export const deletePlanet = (id) => (dispatch) => {
-  console.log(id)
   axios
     .delete(`/api/planets/${id}`)
     .then(res => {

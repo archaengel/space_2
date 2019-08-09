@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addPost } from '../actions/postActions'
+import { editPost } from '../actions/postActions'
 import PropTypes from 'prop-types'
 
 import { Redirect } from 'react-router-dom'
 
-class PostForm extends Component {
+class PostEditForm extends Component {
   constructor(props){
     super(props)
     this.state = {
-      title: '',
-      body: '',
+      title: props.location.state.post.title,
+      body: props.location.state.post.body,
+      id: props.location.state.post._id,
       redirectToReferrer: false
     }
 
@@ -27,10 +28,11 @@ class PostForm extends Component {
     e.preventDefault()
     const newPost = {
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
+      _id: this.state.id
     }
     if (newPost) {
-      this.props.addPost(newPost)
+      this.props.editPost(newPost)
     }
     this.setState({title: '', body: '', redirectToReferrer: true})
   }
@@ -97,7 +99,7 @@ class PostForm extends Component {
           <input
             className="planet-button"
             type='submit'
-            value='add Post'
+            value='edit Post'
             ref={this.boxRef}
           />
         </form>
@@ -106,8 +108,8 @@ class PostForm extends Component {
   }
 }
 
-PostForm.propTypes = {
-  addPost: PropTypes.func.isRequired,
+PostEditForm.propTypes = {
+  editPost: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -116,5 +118,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { addPost }
-)(PostForm)
+  { editPost }
+)(PostEditForm)

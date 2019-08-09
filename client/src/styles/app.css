@@ -350,7 +350,6 @@ body {
   align-self: flex-start;
   text-align: left;
   padding: 0.5rem;
-  margin: 0 1rem 1rem;
   font-size: 0.8rem;
   font-weight: 400;
   width: 100%;
@@ -390,8 +389,21 @@ body {
   border-radius: 3px;
 }
 
+.delete-post-link,
+.edit-link {
+  text-decoration: none;
+  padding: 0;
+  color: white;
+}
+
+.delete-post-link {
+  background: transparent;
+  border: none;
+}
+
+.edit-link,
+.delete-post-link,
 .drop-menu > li {
-  padding: 0.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -399,6 +411,10 @@ body {
   font-size: 0.8rem;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+.drop-menu > li {
+  padding: 0.5rem;
 }
 
 .drop-menu li ~ li {
@@ -434,13 +450,13 @@ body {
 .post-title {
   color: var(--desktop-secondary);
   padding: 0.5rem;
-  margin: 1rem 1rem 0;
+  margin: 0 0;
   font-size: 1.5rem;
   align-self: flex-start;
 }
 
 .post-date-byline {
-  margin: 0 1rem;
+  margin: 0 0;
   padding: 0.5rem;
   align-self: flex-start;
   color: #333;

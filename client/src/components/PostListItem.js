@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { deletePost } from '../actions/postActions'
+import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 class PostListItem extends Component {
   constructor(props) {
     super(props)
 
-    this.onDeleteClick = this.onDeleteClick.bind(this)
-  }
+    this.state = {
+      redirect: false
+    }
 
-  shouldComponentUpdate(nextProps) {
-    return (nextProps._id !== this.props._id)
+    this.onDeleteClick = this.onDeleteClick.bind(this)
   }
 
   onDeleteClick(id) {
@@ -19,7 +20,7 @@ class PostListItem extends Component {
   }
 
   render() {
-    const {title, body, createdAt, _id} = this.props
+    const {title, body, createdAt, _id, location} = this.props
     return (
       <li className="post-list-item" >
         <header className='post-header'>
@@ -39,9 +40,25 @@ class PostListItem extends Component {
               <span className='drop-trigger'>***</span>
             </label>
             <ul className='drop-menu'>
-              <li
-                onClick={this.onDeleteClick.bind(this, _id)}
-              >delete</li>
+              <li onClick={this.onEditClick}>
+                <Link 
+                  className='edit-link'
+                  to={{
+                    pathname: '/posts/edit',
+                    state: {
+                      from: location,
+                      post: { _id, body, title }
+                    }
+                  }}>edit</Link>
+              </li>
+              <li>
+                <button
+                  onClick={this.onDeleteClick.bind(this, _id)}
+                  className='delete-post-link'
+                >
+                  delete
+                </button>
+              </li>
             </ul>
           </div>
         </header>
@@ -61,4 +78,4 @@ const mapStateToProps = state => ({
   planet: state.planet
 })
 
-export default connect(mapStateToProps, { deletePost })(PostListItem)
+export default withRouter(connect(mapStateToProps, { deletePost })(PostListItem))
