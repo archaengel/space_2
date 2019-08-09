@@ -4,8 +4,8 @@
   --desktop-secondary: #8a5673;
   --mobile-primary: tomato;
   --mobile-secondary: #f03b1a;
-  --danger: #bb2509;
-  --danger-light: #ffa595;
+  --danger: radial-gradient(farthest-side at 100% 100%, #bb2509 10%, #ff6569);
+  --danger-light: linear-gradient(13deg, #ff6569 59%, #bb2509);
 }
 
 html, body {
@@ -21,10 +21,10 @@ h2 {
 
 /* Header */
 
-header {
+.home-header {
   background: var(--bg);
   padding: 1rem 0;
-  height: 20vh;
+  height: 10rem;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -164,21 +164,42 @@ body {
 
 .delete-button {
   background: var(--danger);
+  color: var(--bg);
+}
+
+.delete-button,
+.delete-post-button {
   border-radius: 3px;
   border: none;
   padding: 0.5rem;
   line-height: 0.5;
-  color: var(--bg);
   font-weight: 600;
   font-size: 1.5rem;
 }
 
+.delete-post-button {
+  background: white;
+  color: var(--desktop-secondary);
+  display: flex;
+}
+
+.delete-post-button:hover,
 .delete-button:hover {
-  background: var(--danger-light);
   cursor: pointer;
 }
 
-.planet-form {
+
+.delete-button:hover {
+  background: var(--danger-light);
+}
+
+.delete-post-button:hover {
+  background: var(--desktop-secondary);
+  color: white;
+}
+
+.planet-form,
+.post-form {
   background: var(--desktop-primary);
   display: flex;
   flex-direction: column;
@@ -196,15 +217,47 @@ body {
   letter-spacing: 0.5rem;
   font-weight: 600;
   color: #333;
+  border-radius: 3px;
+  text-align: left;
 }
 
 .planet-input {
+  margin-left: 0.5rem;
+}
+
+.post-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.planet-input,
+.post-input,
+.post-textarea {
   background: var(--desktop-primary);
   color: var(--bg);
   font-weight: 600;
   border: none;
   border-bottom: solid var(--desktop-secondary) 0.2rem;
-  margin-left: 0.5rem;
+}
+
+.post-input,
+.post-textarea {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.post-textarea {
+  resize: none;
+  overflow-y: scroll;
+}
+
+.post-textarea-label,
+.post-input-label {
+  align-self: flex-start;
+  float: left;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .planet-input::placeholder {
@@ -233,7 +286,9 @@ body {
   text-transform: uppercase;
 }
 
-.planet-input-label {
+.planet-input-label,
+.post-input-label,
+.post-textarea-label {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
   color: var(--bg);
@@ -247,13 +302,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 3px;
 }
 
 .planet-list-title {
   font-size: 1rem;
 }
 
-.planet-list p {
+.planet-list .empty-list,
+.post-list-unauth {
   font-weight: 400;
   color: var(--bg);
   font-size: 1rem;
@@ -265,13 +322,12 @@ body {
   text-align: center;
 }
 
-.planet-list-item {
+.planet-list-item,
+.post-list-item {
   background: var(--desktop-secondary);
   margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   width: 95%;
-  text-align: center;
   display: flex;
   justify-content: space-between;
   font-weight: 600;
@@ -279,7 +335,120 @@ body {
   color: var(--bg);
 }
 
-.planet-list-item:last-child {
+.post-list-item {
+  background: white;
+  border: solid var(--desktop-secondary);
+}
+
+.planet-list-item {
+  flex-direction: row;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.post-body {
+  align-self: flex-start;
+  text-align: left;
+  padding: 0.5rem;
+  margin: 0 1rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  width: 100%;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.post-list-item {
+  flex-direction: column;
+  padding: 0.5rem 1rem 0;
+  overflow: hidden;
+}
+
+.create-post-button {
+  text-decoration: none;
+  padding: 0.5rem;
+  font-weight: 600;
+  background: var(--desktop-secondary);
+  border-radius: 3px;
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: uppercase;
+  color: var(--bg);
+}
+
+.drop-menu {
+  display: none;
+  position: absolute;
+  list-style: none;
+  right: 2.5vw;
+  bottom: 0;
+  background: var(--desktop-secondary);
+  color: white;
+  z-index: 9;
+  padding: 0.5rem;
+  width: 5rem;
+  border-radius: 3px;
+}
+
+.drop-menu > li {
+  padding: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.drop-menu li ~ li {
+  border-top: rgba(0, 0, 1, 0.3) solid 3px;
+}
+
+.drop-menu li:first-child {
+  border-radius: 3px 3px 0 0;
+}
+
+.drop-menu li:last-child {
+  border-radius: 0 0 3px 3px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown:hover .drop-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mobile-menu-check {
+  display: none;
+}
+
+.post-hgroup {
+  overflow: scroll;
+}
+
+.post-title {
+  color: var(--desktop-secondary);
+  padding: 0.5rem;
+  margin: 1rem 1rem 0;
+  font-size: 1.5rem;
+  align-self: flex-start;
+}
+
+.post-date-byline {
+  margin: 0 1rem;
+  padding: 0.5rem;
+  align-self: flex-start;
+  color: #333;
+  font-style: italic;
+}
+
+.planet-list-item:last-child,
+.post-list-item:last-child {
   margin-bottom: 0;
 }
 
@@ -307,9 +476,20 @@ body {
   .api-card-wrapper,
   .planet-list,
   .form-state,
+  .post-form,
   .planet-form,
+  .post-input,
+  .post-textarea,
   .planet-input {
     background: var(--mobile-primary);
+  }
+
+  .delete-post-button {
+    color: var(--mobile-secondary);
+  }
+
+  .post-title {
+    color: var(--mobile-secondary);
   }
 
   .form-state {
@@ -317,14 +497,52 @@ body {
     letter-spacing: 0.2rem;
   }
 
-  .planet-input {
+  .planet-input,
+  .post-input,
+  .post-textarea {
     border-bottom-color: var(--mobile-secondary);
   }
 
+  .post-list-item {
+    border: solid var(--mobile-secondary);
+  }
+
   .planet-button,
-  .planet-list p,
+  .planet-list .empty-list,
   .planet-list-item,
+  .post-list,
+  .post-list-unauth,
+  .create-post-button,
   .nav-button {
     background: var(--mobile-secondary);
+  }
+
+  .delete-post-button:hover {
+    background: white;
+    color: var(--mobile-secondary);
+  }
+
+  .dropdown:hover .drop-menu {
+    display: none;
+  }
+
+  input[type=checkbox]:checked ~ label > .drop-trigger:after {
+    content: "CANCEL";
+    z-index: 80;
+    color: white;
+    width: 100%;
+    left: -1rem;
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  input[type=checkbox]:checked ~ .drop-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 1, 0.7) 0 0 1rem 99rem;
+    background: rgba(0, 0, 1, 0.7);
+    width: 75vw;
   }
 }

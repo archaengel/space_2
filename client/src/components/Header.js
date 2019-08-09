@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <AuthButton />
-      <header> 
+      <header className='home-header'> 
         <i className="logo">LOGO</i>
         <Navigation />
       </header>

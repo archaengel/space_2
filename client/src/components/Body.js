@@ -4,7 +4,6 @@ import ApiList from './ApiList'
 import PlanetList from './PlanetList'
 import PlanetForm from './PlanetForm'
 import PostList from './PostList'
-import PostForm from './PostForm'
 
 const Body = () => {
   return (
@@ -12,8 +11,6 @@ const Body = () => {
       <ApiList />
       <PlanetList />
       <PlanetForm />
-      <PostList />
-      <PostForm />
     </React.Fragment>
   )
 }

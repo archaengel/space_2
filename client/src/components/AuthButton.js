@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { loadUser, logout } from '../actions/authActions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -14,7 +14,7 @@ class AuthButton extends Component{
   }
 
   render() {
-    const { auth, logout } = this.props
+    const { auth, logout, location } = this.props
     return (
       <div className='auth-button-wrapper'>
         {
@@ -26,8 +26,14 @@ class AuthButton extends Component{
             logout
           </button> :
           <>
-            <Link className="nav-link" to='/register'>Sign Up</Link>
-            <Link className="nav-link" to='/login'>Sign In</Link>
+            <Link className="nav-link" to={{
+              pathname: '/register',
+              state: { from: location }
+            }}>Sign Up</Link>
+            <Link className="nav-link" to={{
+              pathname: '/login',
+              state: { from: location }
+            }}>Sign In</Link>
           </>
         }
       </div>
@@ -45,5 +51,5 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { loadUser, logout })(AuthButton)
+export default withRouter(connect(mapStateToProps, { loadUser, logout })(AuthButton))
 

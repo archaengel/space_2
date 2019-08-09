@@ -1,12 +1,14 @@
 import React from 'react'
 import AuthButton from './AuthButton'
 
+import { NavLink } from 'react-router-dom'
+
 const Navigation = (props) => {
   return (
     <nav>
-      <a className="nav-link" href="#" >NASA</a>
-      <a className="nav-link" href="#" >About</a>
-      <a className="nav-link" href="#" >Contact</a>
+      <NavLink className='nav-link' exact to='/' >Home</NavLink>
+      <NavLink className='nav-link' to='/posts' >Posts</NavLink>
+      <NavLink className='nav-link' to='/planets' >Planets</NavLink>
     </nav>
   )
 }

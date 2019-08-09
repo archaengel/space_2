@@ -11,6 +11,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      redirectToReferrer: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -28,9 +29,13 @@ class Login extends Component {
     const { email, password } = this.state
 
     this.props.login({ email, password })
+    this.setState({ redirectToReferrer: true })
   }
 
   render() {
+    const { from } = this.props.location.state || { from: { pathname: '/' }}
+    const { redirectToReferrer } = this.state
+    const { isAuthenticated } = this.props.auth
     return (
       <React.Fragment>
         <pre className='form-state' >
@@ -80,7 +85,7 @@ class Login extends Component {
           </p>
           <Link to='/register' >Sign Up.</Link>
         </footer>
-        { this.props.auth.isAuthenticated ? <Redirect to='/' /> : null }
+        { isAuthenticated && redirectToReferrer ? <Redirect to={from} /> : null }
       </React.Fragment>
     )
   }
