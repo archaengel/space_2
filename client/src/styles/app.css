@@ -237,9 +237,12 @@ body {
 .post-textarea {
   background: var(--desktop-primary);
   color: var(--bg);
-  font-weight: 600;
+  font-weight: 400;
   border: none;
+  padding: 0.5rem;
+  border-radius: 3px;
   border-bottom: solid var(--desktop-secondary) 0.2rem;
+  box-shadow: inset rgba(0, 0, 1, 0.7) 0 0 0.1rem;
 }
 
 .post-input,
