@@ -196,6 +196,7 @@ body {
 .delete-post-button:hover {
   background: var(--desktop-secondary);
   color: white;
+  transition: all 0.30s;
 }
 
 .planet-form,
@@ -297,7 +298,7 @@ body {
 .planet-list {
   background: var(--desktop-primary);
   padding: 0 1rem 1rem;
-  margin: 0 2.5vw;
+  margin: 0 2.5vw 1rem;
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -379,7 +380,7 @@ body {
   display: none;
   position: absolute;
   list-style: none;
-  right: 2.5vw;
+  right: 0;
   bottom: 0;
   background: var(--desktop-secondary);
   color: white;
@@ -438,6 +439,16 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: fade 0.15s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .mobile-menu-check {
@@ -501,6 +512,10 @@ body {
     background: var(--mobile-primary);
   }
 
+  .form-state {
+    display: none;
+  }
+
   .delete-post-button {
     color: var(--mobile-secondary);
   }
@@ -543,23 +558,91 @@ body {
     display: none;
   }
 
+  .drop-menu > li {
+    flex-basis: 3rem;
+    background: white;
+  }
+
+  .edit-link {
+    color: black;
+  }
+
+  .delete-post-link {
+    color: tomato;
+  }
+
+  .edit-link,
+  .delete-post-link {
+    font-size: 1rem;
+  }
+
+  input[type=checkbox]:checked ~ label > .drop-trigger:after,
+  .drop-menu > li {
+    box-shadow: rgba(0, 0, 1, 0.7) 0 0.3rem 0.5rem -0.3rem;
+  }
+
+  .drop-menu > li:first-child {
+    border-radius: 25px 25px 0 0;
+  }
+
+  .drop-menu > li:last-child {
+    border-radius: 0 0 25px 25px;
+  }
+
+  .drop-menu li ~ li {
+    border-top: solid rgba(0, 0, 1, 0.4) 2px;
+  }
+
   input[type=checkbox]:checked ~ label > .drop-trigger:after {
     content: "CANCEL";
     z-index: 80;
-    color: white;
-    width: 100%;
-    left: -1rem;
-    position: absolute;
+    color: black;
+    width: 50vw;
+    text-align: center;
+    bottom: 10vh;
+    left: 0rem;
+    position: fixed;
     font-size: 1rem;
     font-weight: 400;
+    background: white;
+    border-radius: 25px;
+    padding: 1.5rem 0;
+    margin: 0 25vw;
+    animation: float-drop-trigger 0.15s ease-in;
   }
 
   input[type=checkbox]:checked ~ .drop-menu {
+    visibility: visible;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: rgba(0, 0, 1, 0.7) 0 0 1rem 99rem;
-    background: rgba(0, 0, 1, 0.7);
-    width: 75vw;
+    box-shadow: rgba(0, 0, 1, 0.5) 0 0 1rem 99rem;
+    background: rgba(0, 0, 1, 0.5);
+    height: 10rem;
+    width: 50vw;
+    margin: 0 25vw;
+    top: 40vh;
+    position: fixed;
+    padding: 0.5rem 0;
+    animation: float-drop-menu 0.15s ease-out;
+  }
+
+  @keyframes float-drop-menu {
+    0% {
+      top: 110vh;
+    }
+    100% {
+      top: 40vh;
+    }
+  }
+
+  @keyframes float-drop-trigger {
+    0% {
+      bottom: -40vh;
+    }
+    100% {
+      bottom: 10vh;
+    }
   }
 }
+
