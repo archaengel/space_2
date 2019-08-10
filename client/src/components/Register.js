@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { register } from '../actions/authActions'
+import { clearErrors } from '../actions/errorActions'
 import PropTypes from 'prop-types'
 import { Redirect, Link } from 'react-router-dom'
 import Login from './Login'
@@ -13,6 +14,7 @@ class Register extends Component {
       name: '',
       email: '',
       password: '',
+      msg: null
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -32,9 +34,23 @@ class Register extends Component {
     this.props.register({ name, email, password })
   }
 
+  componentDidUpdate(prevProps) {
+    const { error, isAuthenticated } = this.props
+
+    if (error !== prevProps.error) {
+      if (error.id === 'REGISTER_FAIL') {
+        this.setState({ msg: error.msg })
+      } else {
+        this.setState({ msg: null })
+      }
+    }
+  }
+
   render() {
+    const { msg } = this.state
     return (
       <React.Fragment>
+        { msg ? (<div className='auth-alert'>{msg}</div>) : null }
         <pre className='form-state' >
           {JSON.stringify(this.state, null, 2)}
         </pre>
@@ -47,43 +63,43 @@ class Register extends Component {
             htmlFor='name'
           >
             Name: 
-            <input
-              className='planet-input'
-              name='name'
-              id='name'
-              type='text'
-              onChange={this.handleChange}
-              value={this.state.name}
-            />
           </label>
+          <input
+            className='planet-input'
+            name='name'
+            id='name'
+            type='text'
+            onChange={this.handleChange}
+            value={this.state.name}
+          />
           <label
             className='planet-input-label'
             htmlFor='email'
           >
             Email: 
-            <input
-              className='planet-input'
-              type='email'
-              id='email'
-              name='email'
-              onChange={this.handleChange}
-              value={this.state.email}
-            />
           </label>
+          <input
+            className='planet-input'
+            type='email'
+            id='email'
+            name='email'
+            onChange={this.handleChange}
+            value={this.state.email}
+          />
           <label
             className='planet-input-label'
             htmlFor='password'
           >
             Password: 
-            <input
-              className='planet-input'
-              type='password'
-              id='password'
-              name='password'
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
           </label>
+          <input
+            className='planet-input'
+            type='password'
+            id='password'
+            name='password'
+            onChange={this.handleChange}
+            value={this.state.password}
+          />
           <input
             className='planet-button'
             type='submit'
@@ -96,18 +112,21 @@ class Register extends Component {
           </p>
           <Link to='/login' >Sign In.</Link>
         </footer>
-        { this.props.auth.isAuthenticated ? <Redirect to='/' /> : null }
+        { this.props.isAuthenticated ? <Redirect to='/' /> : null }
       </React.Fragment>
     )
   }
 }
 
 Register.propTypes = {
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  error: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
 })
 
-export default connect(mapStateToProps, { register })(Register)
+export default connect(mapStateToProps, { register, clearErrors })(Register)

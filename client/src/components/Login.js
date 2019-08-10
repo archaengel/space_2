@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions/authActions'
+import { clearErrors } from '../actions/errorActions'
 import PropTypes from 'prop-types'
 import { Link, Redirect } from 'react-router-dom'
 
@@ -11,6 +12,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      msg: null,
       redirectToReferrer: false
     }
 
@@ -29,15 +31,31 @@ class Login extends Component {
     const { email, password } = this.state
 
     this.props.login({ email, password })
-    this.setState({ redirectToReferrer: true })
+  }
+
+  componentDidUpdate(prevProps) {
+    const { error, isAuthenticated } = this.props
+
+    if (error !== prevProps.error) {
+      if (error.id === 'LOGIN_FAIL') {
+        console.log(error.msg)
+        this.setState({ msg: error.msg })
+      } else {
+        this.setState({ msg: null })
+      }
+    }
+
+    if (isAuthenticated) {
+      this.setState({ redirectToReferrer: true })
+    }
   }
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' }}
-    const { redirectToReferrer } = this.state
-    const { isAuthenticated } = this.props.auth
+    const { redirectToReferrer, msg } = this.state
     return (
       <React.Fragment>
+        { msg ? (<div className='auth-alert'>{msg}</div>) : null }
         <pre className='form-state' >
           {JSON.stringify(this.state, null, 2)}
         </pre>
@@ -50,29 +68,29 @@ class Login extends Component {
             htmlFor='email'
           >
             Email: 
-            <input
-              className='planet-input'
-              type='email'
-              id='email'
-              name='email'
-              onChange={this.handleChange}
-              value={this.state.email}
-            />
           </label>
+          <input
+            className='planet-input'
+            type='email'
+            id='email'
+            name='email'
+            onChange={this.handleChange}
+            value={this.state.email}
+          />
           <label
             className='planet-input-label'
             htmlFor='password'
           >
             Password: 
-            <input
-              className='planet-input'
-              type='password'
-              id='password'
-              name='password'
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
           </label>
+          <input
+            className='planet-input'
+            type='password'
+            id='password'
+            name='password'
+            onChange={this.handleChange}
+            value={this.state.password}
+          />
           <input
             className='planet-button'
             type='submit'
@@ -85,18 +103,22 @@ class Login extends Component {
           </p>
           <Link to='/register' >Sign Up.</Link>
         </footer>
-        { isAuthenticated && redirectToReferrer ? <Redirect to={from} /> : null }
+        { redirectToReferrer ? <Redirect to={from} /> : null }
       </React.Fragment>
     )
   }
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+  error: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
 })
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { login, clearErrors })(Login)
