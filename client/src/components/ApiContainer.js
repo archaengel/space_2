@@ -47,7 +47,6 @@ class ApiContainer extends React.Component {
             <img className="api-img" src={ this.state.apiSrc } />
           </div>
           <p className="api-caption">{ this.state.apiCaption }</p>
-          <div className="blur"></div>
           <footer className="post-footer">
             <div className="post-date">
               { this.state.apiDate }

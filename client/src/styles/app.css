@@ -1,9 +1,13 @@
 :root {
-  --bg: #eec;
+  /*--bg: #eec;*/
+  --bg: white;
   --desktop-primary: #bfa4b3;
   --desktop-secondary: #8a5673;
-  --mobile-primary: tomato;
-  --mobile-secondary: #f03b1a;
+  /*--mobile-primary: tomato;*/
+  --mobile-primary: transparent;
+  /*--mobile-secondary: #f03b1a;*/
+  --mobile-secondary: transparent;
+  --text-primary: black;
   --danger: radial-gradient(farthest-side at 100% 100%, #bb2509 10%, #ff6569);
   --danger-light: linear-gradient(13deg, #ff6569 59%, #bb2509);
 }
@@ -16,7 +20,7 @@ html, body {
 }
 
 h2 {
-  font-family: "IBM Plex Serif", times;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 /* Header */
@@ -46,7 +50,7 @@ header > nav {
   margin: 1rem;
   transform: skew(0, -20deg);
   font-weight: bold;
-  text-shadow: 1rem 0.4rem 0.1rem var(--mobile-primary);
+  text-shadow: 1rem 0.4rem 0.1rem lightgray;
   font-size: 4rem;
 }
 
@@ -98,14 +102,23 @@ body {
   justify-content: center;
 }
 
+.dummy-center {
+  width: 100vw;
+  text-align: center
+}
+
 .active {
   border-bottom: 0.1rem solid;
 }
 
 .api-title {
-  z-index: 0;
+  z-index: 50;
   font-size: 1rem;
   font-weight: 600;
+  padding: 0 0.5rem;
+  margin-bottom: -0.5rem;
+  background: lightgray;
+  transform: skew(0, 2deg);
 }
 
 .api-container {
@@ -117,18 +130,40 @@ body {
 
 .api-img {
   width: 100%;
+  background: grey;
+  animation: fade-width 0.15s;
+}
+
+@keyframes fade-width {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .api-card-wrapper {
-  background: var(--desktop-primary);
+  background: var(--mobile-primary);
   margin: 0 auto 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  width: 95vw;
   max-width: 95vw;
   border-radius: 3px;
+  animation: fade-in 0.15s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .api-img-wrapper {
@@ -150,21 +185,9 @@ body {
   z-index: 10;
 }
 
-.blur {
-  background: linear-gradient(60deg, palegreen, var(--desktop-primary), skyblue);
-  max-width: 100%;
-  width: 30rem;
-  height: 20rem;
-  position: absolute;
-  bottom: 3rem;
-  filter: blur(3rem);
-  border-radius: 50%;
-  transform: skew(0, -20deg);
-}
-
 .delete-button {
   background: var(--danger);
-  color: var(--bg);
+  color: var(--text-primary);
 }
 
 .delete-button,
@@ -179,7 +202,7 @@ body {
 
 .delete-post-button {
   background: white;
-  color: var(--desktop-secondary);
+  color: var(--text-primary);
   display: flex;
 }
 
@@ -194,13 +217,14 @@ body {
 }
 
 .delete-post-button:hover {
-  background: var(--desktop-secondary);
+  background: black;
   color: white;
+  transition: all 0.30s;
 }
 
 .planet-form,
 .post-form {
-  background: var(--desktop-primary);
+  background: var(--mobile-primary);
   display: flex;
   flex-direction: column;
   margin: 0 2.5vw 1rem;
@@ -210,7 +234,7 @@ body {
 }
 
 .form-state {
-  background: var(--desktop-primary);
+  background: var(--mobile-primary);
   margin: 1rem 2.5vw; 
   padding: 1rem;
   font-family: "IBM Plex Sans", sans-serif;
@@ -234,11 +258,13 @@ body {
 .planet-input,
 .post-input,
 .post-textarea {
-  background: var(--desktop-primary);
-  color: var(--bg);
-  font-weight: 600;
+  background: var(--mobile-primary);
+  color: var(--text-primary);
+  font-weight: 400;
   border: none;
-  border-bottom: solid var(--desktop-secondary) 0.2rem;
+  padding: 0.5rem;
+  border-radius: 3px;
+  box-shadow: inset rgba(0, 0, 1, 0.7) 0 0 0.1rem;
 }
 
 .post-input,
@@ -265,8 +291,8 @@ body {
 }
 
 .nav-button {
-  background: var(--desktop-secondary);
-  color: var(--bg);
+  background: var(--mobile-secondary);
+  color: var(--text-primary);
   font-weight: 600;
   padding: 0.5rem;
   border-radius: 3px;
@@ -275,8 +301,8 @@ body {
 }
 
 .planet-button {
-  background: var(--desktop-secondary);
-  color: var(--bg);
+  background: var(--mobile-secondary);
+  color: var(--text-primary);
   font-weight: 600;
   width: 33vw;
   padding: 0.5rem;
@@ -291,13 +317,13 @@ body {
 .post-textarea-label {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
-  color: var(--bg);
+  color: var(--text-primary);
 }
 
 .planet-list {
-  background: var(--desktop-primary);
+  background: var(--mobile-primary);
   padding: 0 1rem 1rem;
-  margin: 0 2.5vw;
+  margin: 0 2.5vw 1rem;
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -312,9 +338,9 @@ body {
 .planet-list .empty-list,
 .post-list-unauth {
   font-weight: 400;
-  color: var(--bg);
+  color: var(--text-primary);
   font-size: 1rem;
-  background: var(--desktop-secondary);
+  background: var(--mobile-secondary);
   padding: 0.5rem 1rem;
   border-radius: 3px;
   margin: 0;
@@ -324,20 +350,19 @@ body {
 
 .planet-list-item,
 .post-list-item {
-  background: var(--desktop-secondary);
+  background: var(--mobile-secondary);
   margin-bottom: 0.5rem;
-  border-radius: 4px;
   width: 95%;
   display: flex;
   justify-content: space-between;
   font-weight: 600;
   align-items: center;
-  color: var(--bg);
+  color: var(--text-primary);
 }
 
 .post-list-item {
   background: white;
-  border: solid var(--desktop-secondary);
+  border-bottom: 0.1rem black solid;
 }
 
 .planet-list-item {
@@ -368,25 +393,26 @@ body {
   text-decoration: none;
   padding: 0.5rem;
   font-weight: 600;
-  background: var(--desktop-secondary);
+  background: var(--mobile-secondary);
   border-radius: 3px;
   font-family: "IBM Plex Sans", sans-serif;
   text-transform: uppercase;
-  color: var(--bg);
+  color: var(--text-primary);
 }
 
 .drop-menu {
   display: none;
   position: absolute;
   list-style: none;
-  right: 2.5vw;
+  right: 0;
   bottom: 0;
-  background: var(--desktop-secondary);
+  background: black;
   color: white;
   z-index: 9;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   width: 5rem;
   border-radius: 3px;
+  transition: all 0.15s;
 }
 
 .delete-post-link,
@@ -399,6 +425,7 @@ body {
 .delete-post-link {
   background: transparent;
   border: none;
+  height: 0.5rem;
   align-self: center;
 }
 
@@ -419,7 +446,7 @@ body {
 }
 
 .drop-menu li ~ li {
-  border-top: rgba(0, 0, 1, 0.3) solid 3px;
+  border-top: rgba(255, 255, 255, 0.7) solid 0.1rem;
 }
 
 .drop-menu li:first-child {
@@ -449,7 +476,7 @@ body {
 }
 
 .post-title {
-  color: var(--desktop-secondary);
+  color: var(--text-primary);
   padding: 0.5rem;
   margin: 0 0;
   font-size: 1.5rem;
@@ -501,12 +528,16 @@ body {
     background: var(--mobile-primary);
   }
 
+  .form-state {
+    display: none;
+  }
+
   .delete-post-button {
-    color: var(--mobile-secondary);
+    color: var(--text-primary);
   }
 
   .post-title {
-    color: var(--mobile-secondary);
+    color: var(--text-primary);
   }
 
   .form-state {
@@ -518,10 +549,6 @@ body {
   .post-input,
   .post-textarea {
     border-bottom-color: var(--mobile-secondary);
-  }
-
-  .post-list-item {
-    border: solid var(--mobile-secondary);
   }
 
   .planet-button,
@@ -543,23 +570,91 @@ body {
     display: none;
   }
 
+  .drop-menu > li {
+    flex-basis: 3rem;
+    background: white;
+  }
+
+  .edit-link {
+    color: black;
+  }
+
+  .delete-post-link {
+    color: tomato;
+  }
+
+  .edit-link,
+  .delete-post-link {
+    font-size: 1rem;
+  }
+
+  input[type=checkbox]:checked ~ label > .drop-trigger:after,
+  .drop-menu > li {
+    box-shadow: rgba(0, 0, 1, 0.7) 0 0.3rem 0.5rem -0.3rem;
+  }
+
+  .drop-menu > li:first-child {
+    border-radius: 25px 25px 0 0;
+  }
+
+  .drop-menu > li:last-child {
+    border-radius: 0 0 25px 25px;
+  }
+
+  .drop-menu li ~ li {
+    border-top: solid rgba(0, 0, 1, 0.4) 2px;
+  }
+
   input[type=checkbox]:checked ~ label > .drop-trigger:after {
     content: "CANCEL";
     z-index: 80;
-    color: white;
-    width: 100%;
-    left: -1rem;
-    position: absolute;
+    color: black;
+    width: 50vw;
+    text-align: center;
+    bottom: 10vh;
+    left: 0rem;
+    position: fixed;
     font-size: 1rem;
     font-weight: 400;
+    background: white;
+    border-radius: 25px;
+    padding: 1.5rem 0;
+    margin: 0 25vw;
+    animation: float-drop-trigger 0.15s ease-in;
   }
 
   input[type=checkbox]:checked ~ .drop-menu {
+    visibility: visible;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: rgba(0, 0, 1, 0.7) 0 0 1rem 99rem;
-    background: rgba(0, 0, 1, 0.7);
-    width: 75vw;
+    box-shadow: rgba(0, 0, 1, 0.5) 0 0 1rem 99rem;
+    background: rgba(0, 0, 1, 0.5);
+    height: 10rem;
+    width: 50vw;
+    margin: 0 25vw;
+    top: 40vh;
+    position: fixed;
+    padding: 0.5rem 0;
+    animation: float-drop-menu 0.15s ease-out;
+  }
+
+  @keyframes float-drop-menu {
+    0% {
+      top: 110vh;
+    }
+    100% {
+      top: 40vh;
+    }
+  }
+
+  @keyframes float-drop-trigger {
+    0% {
+      bottom: -40vh;
+    }
+    100% {
+      bottom: 10vh;
+    }
   }
 }
+
