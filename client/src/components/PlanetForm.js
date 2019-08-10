@@ -12,7 +12,6 @@ class PlanetForm extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.boxRef = React.createRef()
   }
 
   handleChange(e) {
@@ -29,10 +28,6 @@ class PlanetForm extends Component {
       this.props.addPlanet(newPlanet)
     }
     this.setState({planetName: ''})
-  }
-
-  componentDidUpdate() {
-    this.boxRef.current.scrollIntoView()
   }
 
   // Update if name is input or planet is added, but not deleted
@@ -71,7 +66,6 @@ class PlanetForm extends Component {
             className="planet-button"
             type='submit'
             value='add Planet'
-            ref={this.boxRef}
           />
         </form>
       </React.Fragment>
