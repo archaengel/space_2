@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { getPosts } from '../actions/postActions'
 import { loadUser } from '../actions/authActions'
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import { Link, withRouter } from 'react-router-dom'
 
-import PostListItem from './PostListItem'
+const PostListItem = lazy(() => import('./PostListItem'))
 
 class PostList extends Component {
   constructor(props){
@@ -27,7 +27,9 @@ class PostList extends Component {
         <h2>{ user.name }'s Diary</h2>
         {
           posts.map(post => (
-            <PostListItem key={post._id} {...post}/>
+            <Suspense fallback={<div className='logo dummy-center'>Loading...</div>} >
+              <PostListItem key={post._id} {...post}/>
+            </Suspense>
           ))
         }
         <Link

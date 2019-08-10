@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 
-import ApiContainer from './ApiContainer'
+const ApiContainer = lazy(() => import('./ApiContainer'))
 
 const PostList = () => {
   return (
     <React.Fragment>
-      <ApiContainer />
-    {/* <ApiContainer date="2019-06-10" /> */}
-    {/* <ApiContainer date="2019-06-08" /> */}
+      <Suspense fallback={<div className='logo dummy-center'>Loading...</div>}>
+        <ApiContainer />
+      </Suspense>
     </React.Fragment>
   )
 }

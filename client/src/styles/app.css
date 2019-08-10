@@ -98,6 +98,11 @@ body {
   justify-content: center;
 }
 
+.dummy-center {
+  width: 100vw;
+  text-align: center
+}
+
 .active {
   border-bottom: 0.1rem solid;
 }
@@ -117,6 +122,17 @@ body {
 
 .api-img {
   width: 100%;
+  background: grey;
+  animation: fade-width 0.15s;
+}
+
+@keyframes fade-width {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .api-card-wrapper {
@@ -127,8 +143,19 @@ body {
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  width: 95vw;
   max-width: 95vw;
   border-radius: 3px;
+  animation: fade-in 0.15s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .api-img-wrapper {
@@ -442,16 +469,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: fade 0.15s;
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .mobile-menu-check {
