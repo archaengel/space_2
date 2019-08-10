@@ -102,6 +102,15 @@ body {
   justify-content: center;
 }
 
+.auth-alert {
+  text-align: center;
+  color: tomato;
+  text-transform: uppercase;
+  margin: auto auto;
+  animation: fade-in 0.15s;
+}
+
+
 .dummy-center {
   width: 100vw;
   text-align: center
@@ -227,7 +236,7 @@ body {
   background: var(--mobile-primary);
   display: flex;
   flex-direction: column;
-  margin: 0 2.5vw 1rem;
+  margin: 0 auto 1rem;
   padding: 1rem;
   border-radius: 3px;
   align-items: center;
@@ -245,10 +254,6 @@ body {
   text-align: left;
 }
 
-.planet-input {
-  margin-left: 0.5rem;
-}
-
 .post-header {
   width: 100%;
   display: flex;
@@ -262,11 +267,12 @@ body {
   color: var(--text-primary);
   font-weight: 400;
   border: none;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   border-radius: 3px;
   box-shadow: inset rgba(0, 0, 1, 0.7) 0 0 0.1rem;
 }
 
+.planet-input,
 .post-input,
 .post-textarea {
   width: 100%;
@@ -284,6 +290,10 @@ body {
   float: left;
   display: block;
   margin-bottom: 0.5rem;
+}
+
+.planet-input-label {
+  align-self: flex-start;
 }
 
 .planet-input::placeholder {
