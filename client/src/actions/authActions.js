@@ -11,6 +11,8 @@ import {
   AUTH_ERROR
 } from './types'
 
+import { returnErrors } from './errorActions'
+
 // Check token and load user
 export const loadUser = () => (dispatch, getState) => {
   // Set user loading
@@ -25,7 +27,7 @@ export const loadUser = () => (dispatch, getState) => {
       })
     )
     .catch(err => {
-      console.log('loadUser Error: ' + err)
+      dispatch(returnErrors(err.response.data, err.response.status))
       dispatch({
         type: AUTH_ERROR
       })
@@ -54,7 +56,7 @@ export const register = ({ name, email, password }) => dispatch => {
       })
     )
     .catch(err => {
-      console.log('register Error: ' + err)
+      dispatch(returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'))
       dispatch({
         type: REGISTER_FAIL
       })
@@ -82,7 +84,7 @@ export const login = ({ email, password }) => dispatch => {
       })
     )
     .catch(err => {
-      console.log('login Error: ' + err)
+      dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'))
       dispatch({
         type: LOGIN_FAIL
       })
