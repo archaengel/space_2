@@ -1,12 +1,20 @@
-<h1 align="center">Welcome to SPACE_II 👋</h1>
+<h1 align="center">Welcome to SPACE_II 🔮</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> An improved space
+> An improved space.
 
 ## Install
+From root folder:
+```sh
+# Install server dependencies...
+yarn install
 
+# Then, navigate to clent folder and install dependencies...
+cd ./client && yarn install
+```
+Or, to install dependencies for server and client in one swell foop:
 ```sh
 yarn install && yarn --cwd client install
 ```
@@ -14,7 +22,7 @@ yarn install && yarn --cwd client install
 ## Usage
 
 ```sh
-node server.js
+yarn --cwd client run build && node server.js
 ```
 
 ## Author
