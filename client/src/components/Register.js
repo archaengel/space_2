@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { register } from '../actions/authActions'
-import { clearErrors } from '../actions/errorActions'
+import { clearErrors, returnErrors } from '../actions/errorActions'
 import PropTypes from 'prop-types'
 import { Redirect, Link } from 'react-router-dom'
 import Login from './Login'
@@ -14,6 +14,7 @@ class Register extends Component {
       name: '',
       email: '',
       password: '',
+      confirmation: '',
       msg: null
     }
 
@@ -29,9 +30,13 @@ class Register extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { name, email, password } = this.state
+    const { name, email, password, confirmation } = this.state
 
-    this.props.register({ name, email, password })
+    if (password !== confirmation) {
+      this.props.returnErrors( { msg: 'Passwords do not match' }, 401, 'REGISTER_FAIL')
+    } else {
+      this.props.register({ name, email, password })
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -100,6 +105,20 @@ class Register extends Component {
             onChange={this.handleChange}
             value={this.state.password}
           />
+          <label
+            className='planet-input-label'
+            htmlFor='password-confirmation'
+          >
+            Password Confirmation: 
+          </label>
+          <input
+            className='planet-input'
+            type='password'
+            id='password-confirmation'
+            name='confirmation'
+            onChange={this.handleChange}
+            value={this.state.confirmation}
+          />
           <input
             className='planet-button'
             type='submit'
@@ -121,6 +140,7 @@ class Register extends Component {
 Register.propTypes = {
   register: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
+  returnErrors: PropTypes.func.isRequired,
   error: PropTypes.object.isRequired
 }
 
@@ -129,4 +149,4 @@ const mapStateToProps = (state) => ({
   error: state.error
 })
 
-export default connect(mapStateToProps, { register, clearErrors })(Register)
+export default connect(mapStateToProps, { register, clearErrors, returnErrors })(Register)
