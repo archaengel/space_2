@@ -195,8 +195,8 @@ body {
 }
 
 .delete-button {
-  background: var(--danger);
-  color: var(--text-primary);
+  color: tomato;
+  background: white;
 }
 
 .delete-button,
@@ -222,7 +222,9 @@ body {
 
 
 .delete-button:hover {
-  background: var(--danger-light);
+  background: tomato;
+  color: white;
+  transition: all 0.1s
 }
 
 .delete-post-button:hover {
@@ -267,7 +269,7 @@ body {
   color: var(--text-primary);
   font-weight: 400;
   border: none;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.5rem;
   border-radius: 3px;
   box-shadow: inset rgba(0, 0, 1, 0.7) 0 0 0.1rem;
 }
@@ -275,7 +277,7 @@ body {
 .planet-input,
 .post-input,
 .post-textarea {
-  width: 100%;
+  width: calc(100% - 0.5rem);
   margin-bottom: 0.5rem;
 }
 
@@ -572,8 +574,8 @@ body {
   }
 
   .delete-post-button:hover {
+    color: var(--text-primary);
     background: white;
-    color: var(--mobile-secondary);
   }
 
   .dropdown:hover .drop-menu {

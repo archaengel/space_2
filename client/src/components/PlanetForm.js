@@ -53,15 +53,15 @@ class PlanetForm extends Component {
             htmlFor='name'
           >
             Planet Name: 
-            <input
-              className="planet-input"
-              type='text'
-              id='name'
-              placeholder='Enter a new planet name...'
-              onChange={this.handleChange}
-              value={this.state.planetName}
-            />
-            </label>
+          </label>
+          <input
+            className="planet-input"
+            type='text'
+            id='name'
+            placeholder='Enter a new planet name...'
+            onChange={this.handleChange}
+            value={this.state.planetName}
+          />
           <input
             className="planet-button"
             type='submit'

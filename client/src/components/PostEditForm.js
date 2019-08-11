@@ -17,7 +17,6 @@ class PostEditForm extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.boxRef = React.createRef()
   }
 
   handleChange(e) {
@@ -99,8 +98,7 @@ class PostEditForm extends Component {
           <input
             className="planet-button"
             type='submit'
-            value='edit Post'
-            ref={this.boxRef}
+            value='save'
           />
         </form>
       </React.Fragment>
