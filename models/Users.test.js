@@ -1,2 +1,9 @@
 import mongooose from 'mongoose'
-const User = require('./Users')
+import { User } from './Users'
+
+describe('User model', () => {
+  it('tests', () => {
+    expect(true).toEqual(true)
+  })
+})
+

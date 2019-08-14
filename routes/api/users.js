@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
 
 const User = require('../../models/Users')
 
@@ -41,14 +42,27 @@ router.post('/', (req, res) => {
                 (err, token) => {
                   if (err) throw err
 
-                  res.json({
-                    token,
-                    user: {
-                      id: savedUser.id,
-                      name: savedUser.name,
-                      password: savedUser.password
-                    }
-                  })
+                  const transport = nodemailer.createTransport({ port: process.env.MAIL_PORT })
+
+                  const message = {
+                    to: savedUser.email,
+                    from: `no-reply@space_II.com`,
+                    subject: `{ ${savedUser.name} }, please verify your email.`,
+                    html: '<h1>' + token + '</h1>'
+                  }
+
+                  transport.sendMail(message)
+                    .then((info) => {
+                      res.json({
+                        token,
+                        user: {
+                          id: savedUser.id,
+                          name: savedUser.name,
+                          password: savedUser.password
+                        }
+                      })
+                    })
+                    .catch((err) => res.status(400).json({ msg: 'Error sending verification email' }))
                 }
               )
             })

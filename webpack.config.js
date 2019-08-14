@@ -11,5 +11,6 @@ module.exports = {
     filename: 'backend.js'
   },
   target: 'node',
+  devtool: 'source-map',
   externals: [nodeExternals()]
 }
