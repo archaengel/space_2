@@ -1,3 +1,7 @@
-it('add four', () => {
-  expect(4+4).toEqual(8)
+import { email } from './email'
+
+describe('email router', () => {
+  it('output email', () => {
+    expect(email()).toEqual('email')
+  })
 })

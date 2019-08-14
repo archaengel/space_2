@@ -4,17 +4,17 @@
   "description": "An improved space",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node dist/backend.js",
     "dev": "nodemon --exec 'heroku local' --signal SIGTERM",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd client install && yarn --cwd client run build",
-    "test":"jest --watch"
+    "heroku-postbuild": "webpack -p && NPM_CONFIG_PRODUCTION=false yarn --cwd client install && yarn --cwd client run build",
+    "test": "jest --watch --env='node'",
+    "build": "webpack"
   },
   "repository": "git@github.com:archaengel/space_2.git",
   "author": "Archaengel <god11341258@gmail.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
@@ -22,7 +22,14 @@
     "mongoose": "^5.6.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6",
+    "webpack-node-externals": "^1.7.2"
   }
 }
