@@ -13,9 +13,9 @@ const authRouter = require('./routes/api/auth')
 const postRouter = require('./routes/api/posts')
 
 // Connect to db
-const uri = process.env.MONGODB_URI
+export const uri = process.env.MONGODB_URI
 
-const dbOptions = {
+export const dbOptions = {
   "useNewUrlParser": true,
   "useCreateIndex": true,
   "useFindAndModify": false

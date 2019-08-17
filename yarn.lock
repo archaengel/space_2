@@ -2604,6 +2604,13 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+fluture-sanctuary-types@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/fluture-sanctuary-types/-/fluture-sanctuary-types-4.0.0.tgz#86c50ed405284e8cd7794ba830978179cdd5d902"
+  integrity sha512-0wFDA92rLWc+6rKGqdUj1oRoppF2Zoslaaepq5cly1LBGEuVo62Wp9BZlD+ltMtyVYBHjeJ3NBLQF6TD3ARuRg==
+  dependencies:
+    sanctuary-type-identifiers "^2.0.0"
+
 fluture@^11.0.2:
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/fluture/-/fluture-11.0.2.tgz#0605a3c18f0566c9ed4ceb77ccec476b27c70f2c"

@@ -19,6 +19,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "fluture": "^11.0.2",
+    "fluture-sanctuary-types": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.6",
     "nodemailer": "^6.3.0",
