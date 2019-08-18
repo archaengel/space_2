@@ -1,10 +1,10 @@
 // Import modules
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 // Import models
-const Planet = require('../../models/Planets')
+import Planet from '../../models/Planets'
 
 // @route   GET /api/planets
 // @desc    Get planets from db
@@ -39,4 +39,4 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.json({success: false}))
 })
 
-module.exports = router
+export default router

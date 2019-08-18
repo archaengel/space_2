@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const Post = require('../../models/Posts')
+import Post from '../../models/Posts'
 
 // Import middlware
-const auth = require('../../middleware/auth')
+import auth from '../../middleware/auth'
 
 // @route POST /api/posts
 // @desc  Create new post
@@ -73,4 +73,4 @@ router.patch('/edit', auth, (req, res) => {
     .catch(err => res.status(400).json({ msg: 'Error updating post' }))
 })
 
-module.exports = router
+export default router

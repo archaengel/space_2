@@ -78,7 +78,9 @@ router.post('/', (req, res) => {
     .map (pw => new User({ name, email, password: pw }))
     .chain (save)
     .chain (r => signToken ({ id: r.id }) (process.env.JWT_SECRET) ({ expiresIn: 3600 })
-      .map (token => ({ token, user: { name: r.name, email: r.email, password: r.password } }))
+      .bimap (
+        _ => ({ status: 400, message: 'Error signing token' }),
+        token => ({ token, user: { name: r.name, email: r.email, password: r.password } }))
     )
 
   eventualToken
