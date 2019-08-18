@@ -1,16 +1,27 @@
 // Import modules
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const path = require('path')
+import express from 'express'
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import path from 'path'
+import Future from 'fluture'
+import { create, env } from 'sanctuary'
+import { env as flutureEnv } from 'fluture-sanctuary-types'
+
+const S = create({ checkTypes: true, env: env.concat(flutureEnv) })
 
 // Import routes
-const usersRouter = require('./routes/api/users')
-const planetsRouter = require('./routes/api/planets')
-const authRouter = require('./routes/api/auth')
-const postRouter = require('./routes/api/posts')
+import usersRouter, { toMaybe, eitherToFuture } from './routes/api/users'
+import planetsRouter from './routes/api/planets'
+import authRouter from './routes/api/auth'
+import postRouter from './routes/api/posts'
+
+const port = process.env.PORT || 5000
+
+const isMain = (main) => S.isJust (toMaybe (main)) 
+
+// initialize server
+const app = express()
 
 // Connect to db
 export const uri = process.env.MONGODB_URI
@@ -21,10 +32,18 @@ export const dbOptions = {
   "useFindAndModify": false
 }
 
-const db = mongoose.connect(uri, dbOptions)
-  .then(() => console.log('db connected'))
-  .catch((err) => console.log(err.message))
+const eventualConnection = Future.encaseN2 (mongoose.connect)
 
+const startDBIfCommandline = (uri) =>
+  (options) =>
+  (main) => S.compose (eitherToFuture) (S.maybeToEither ('Testing')) (toMaybe (main))
+    .chain (_ => eventualConnection (uri) (options))
+
+startDBIfCommandline (uri) (dbOptions) (process.mainModule)
+  .fork(
+    console.error,
+    _ => console.log('>>> 🛢  DB connected...')
+  )
 
 app.use(express.json())
 
@@ -45,6 +64,11 @@ app.get('*', (req, res) => {
 })
 
 // Listen on port
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`>>> Listening on ${ process.env.PORT || 5000}...`)
-})
+const startServerIfCommandline = (main) =>
+  (app) =>
+  (port) => isMain (main) ?
+    S.Just (app.listen(port, () => console.log (`>>> 📡 Listening on ${port}...`))) :
+    S.Nothing
+
+startServerIfCommandline (process.mainModule) (app) (port)
+

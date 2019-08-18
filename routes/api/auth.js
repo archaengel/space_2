@@ -1,11 +1,19 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import Future from 'fluture'
+import { env as flutureEnv } from 'fluture-sanctuary-types'
+import { create, env } from 'sanctuary'
 
-const auth = require('../../middleware/auth')
+const S = create({ checkTypes: true, env: env.concat(flutureEnv) })
 
-const User = require('../../models/Users')
+import auth from '../../middleware/auth'
+
+import User from '../../models/Users'
+
+// compare :: String -> String -> Future Error Boolean
+export const compare = Future.encaseP2 (bcrypt.compare)
 
 // @route  POST /api/auth
 // @desc   Authorize user
@@ -57,4 +65,4 @@ router.get('/user', auth, (req, res) => {
     .then(returnedUser => res.json(returnedUser))
 })
 
-module.exports = router
+export default router

@@ -1,15 +1,19 @@
 import mongoose from 'mongoose'
-const User = require('./Users')
+import User from './Users'
 import * as Future from 'fluture'
 import { create, env } from 'sanctuary'
-const {env: flutureEnv} = require('fluture-sanctuary-types')
+import { env as flutureEnv } from 'fluture-sanctuary-types'
 import bcrypt from 'bcryptjs'
-const {
+import {
   checkUnique,
   save,
   saltAndHash,
   signToken
-} = require('../routes/api/users')
+} from '../routes/api/users'
+import {
+  dbOptions,
+  uri
+} from '../server.js'
 
 const S = create({checkTypes: true, env: env.concat(flutureEnv)})
 
@@ -21,13 +25,7 @@ const testUser = {
 
 describe('User model', () => {
   beforeAll(() => {
-    const dbOptions = {
-      "useNewUrlParser": true,
-      "useCreateIndex": true,
-      "useFindAndModify": false
-    }
-
-    mongoose.connect(process.env.MONGODB_URI, dbOptions)
+    mongoose.connect(uri, dbOptions)
   })
 
   afterAll(done => {

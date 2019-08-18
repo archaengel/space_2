@@ -1,23 +1,28 @@
-const express = require('express')
-const router = express.Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const nodemailer = require('nodemailer')
-const Future = require('fluture')
-const { env: flutureEnv } = require('fluture-sanctuary-types')
-const { create, env } = require('sanctuary')
-const S = create({ checkTypes: true, env: env.concat(flutureEnv) })
+// Import dependencies
+import express from 'express'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import nodemailer from 'nodemailer'
+import Future from 'fluture'
+import { env as flutureEnv } from 'fluture-sanctuary-types'   // Type defs for Fluture
+import { create, env } from 'sanctuary'
 
-const User = require('../../models/Users')
+const router = express.Router()                             // Initialize router
+const S = create({                                          // Initialize type environment
+  checkTypes: true,
+  env: env.concat(flutureEnv)
+})
+
+import User from '../../models/Users'
 
 // toMaybe :: a -> Maybe a
-const toMaybe = (x) => x === null || x === undefined ? S.Nothing : S.Just (x)
+export const toMaybe = (x) => x === null || x === undefined ? S.Nothing : S.Just (x)
 
 // eitherToFuture :: Either e r -> Future e r
-const eitherToFuture = S.either (Future.reject) (Future.of)
+export const eitherToFuture = S.either (Future.reject) (Future.of)
 
 // getModel :: String -> {} -> Future Error (Maybe {})
-const getModel = (model) => (params) => Future ((rej, res) => {
+export const getModel = (model) => (params) => Future ((rej, res) => {
   model
     .findOne({ ...params })
     .then (S.compose (res) (toMaybe))
@@ -25,7 +30,7 @@ const getModel = (model) => (params) => Future ((rej, res) => {
 })
 
 // getUser :: {} -> Future Error (Maybe {})
-const getUser = getModel (User)
+export const getUser = getModel (User)
 
 // eitherNewUser :: {} -> Maybe {} -> Either String {}
 const eitherNewUser = (user) => S.maybe
@@ -36,7 +41,7 @@ const eitherNewUser = (user) => S.maybe
   }))
 
 // checkUnique :: {} -> String -> Future Error {}
-const checkUnique = (user) => S.compose 
+export const checkUnique = (user) => S.compose 
   (S.chain (S.compose (eitherToFuture) (eitherNewUser (user))))
   (getUser)
 
@@ -47,15 +52,15 @@ const salt = Future.encaseN (bcrypt.genSalt)
 const hash = Future.encaseN2 (bcrypt.hash)
 
 // saltAndHash :: Number -> String -> Future Error String
-const saltAndHash = (n) => (pw) => salt (n) .chain (hash (pw))
+export const saltAndHash = (n) => (pw) => salt (n) .chain (hash (pw))
 
 // save :: {} -> Future Error {}
-const save = (user) => Future ((rej, res) => {
+export const save = (user) => Future ((rej, res) => {
   user.save().then(res).catch(rej)
 })
 
 // signToken :: {} -> String -> {} | nil -> Future Error String
-const signToken = Future.encaseN3 (jwt.sign)
+export const signToken = Future.encaseN3 (jwt.sign)
 
 // @route POST /api/users
 // @desc Register new users
@@ -83,4 +88,4 @@ router.post('/', (req, res) => {
     )
 })
 
-module.exports = router
+export default router
