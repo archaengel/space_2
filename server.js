@@ -7,11 +7,12 @@ import path from 'path'
 import Future from 'fluture'
 import { create, env } from 'sanctuary'
 import { env as flutureEnv } from 'fluture-sanctuary-types'
+import { maybeToFuture, toMaybe } from './utils/helpers'
 
 const S = create({ checkTypes: true, env: env.concat(flutureEnv) })
 
 // Import routes
-import usersRouter, { toMaybe, eitherToFuture } from './routes/api/users'
+import usersRouter from './routes/api/users'
 import planetsRouter from './routes/api/planets'
 import authRouter from './routes/api/auth'
 import postRouter from './routes/api/posts'
@@ -36,7 +37,7 @@ const eventualConnection = Future.encaseN2 (mongoose.connect)
 
 const startDBIfCommandline = (uri) =>
   (options) =>
-  (main) => S.compose (eitherToFuture) (S.maybeToEither ('Testing')) (toMaybe (main))
+  (main) => maybeToFuture ('Testing') (toMaybe (main))
     .chain (_ => eventualConnection (uri) (options))
 
 startDBIfCommandline (uri) (dbOptions) (process.mainModule)

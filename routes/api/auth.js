@@ -8,8 +8,10 @@ import { create, env } from 'sanctuary'
 import {
   getUser,
   eitherToFuture,
-  signToken
-} from './users'
+  genToken,
+  signToken,
+  maybeToFuture
+} from '../../utils/helpers'
 
 const S = create({ checkTypes: true, env: env.concat(flutureEnv) })
 
@@ -47,9 +49,9 @@ router.post('/', (req, res) => {
   }
 
   const eventualResponse = getUser ({ email })
-    .chain (S.compose (eitherToFuture) (S.maybeToEither ({ status: 400, message: 'User does not exist' })))
+    .chain (maybeToFuture ({ status: 400, message: 'User does not exist' }))
     .chain (validateUser (password))
-    .chain (r => signToken ({ id: r._id }) (process.env.JWT_SECRET) ({ expiresIn: 3600 })
+    .chain (r => genToken (r) 
       .bimap (
         _ => ({ status: 400, message: 'Error signing token' }),
         token => ({ token, user: { id: r._id, name: r.name, email: r.email } })))
@@ -66,7 +68,7 @@ router.post('/', (req, res) => {
 // @access Private
 router.get('/user', auth, (req, res) => {
   const eventualResponse = getUserById (req.user.id)
-    .chain (S.compose (eitherToFuture) (S.maybeToEither ({ status: 400, message: 'User not found' })))
+    .chain (maybeToFuture ({ status: 400, message: 'User not found' }))
 
   eventualResponse
     .fork (

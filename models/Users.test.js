@@ -8,8 +8,9 @@ import {
   checkUnique,
   save,
   saltAndHash,
+  genToken,
   signToken
-} from '../routes/api/users'
+} from '../utils/helpers'
 import {
   dbOptions,
   uri
@@ -30,10 +31,6 @@ describe('User model', () => {
 
   afterAll(done => {
     mongoose.disconnect(done)
-  })
-
-  it('tests', () => {
-    expect(true).toEqual(true)
   })
 
   it('can find user', done => {
@@ -70,7 +67,7 @@ describe('User model', () => {
   })
 
   it ('can sign token', done => {
-    const eventualTest = signToken ({ id: '123'}) ('sercet') ({ expiresIn: 3600})
+    const eventualTest = genToken ({ ...testUser, id: '1234' })
       .map (x => expect (typeof x) .toEqual ('string'))
 
     eventualTest
