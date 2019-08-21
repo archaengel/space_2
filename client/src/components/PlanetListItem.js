@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { deletePlanet } from '../actions/planetActions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {deletePlanet} from '../actions/planetActions'
 import PropTypes from 'prop-types'
 
 class PlanetListItem extends Component {
   constructor(props) {
-    super(props)
+    super (props)
 
-    this.onDeleteClick = this.onDeleteClick.bind(this)
+    this.onDeleteClick = this.onDeleteClick.bind (this)
   }
 
   shouldComponentUpdate(nextProps) {
@@ -15,7 +15,7 @@ class PlanetListItem extends Component {
   }
 
   onDeleteClick(id) {
-    this.props.deletePlanet(id)
+    this.props.deletePlanet (id)
   }
 
   render() {
@@ -23,7 +23,10 @@ class PlanetListItem extends Component {
     return (
       <li className="planet-list-item" >
         {name}
-        <button className="delete-button" onClick={this.onDeleteClick.bind(this, _id)}>
+        <button
+          className="delete-button"
+          onClick={this.onDeleteClick.bind (this, _id)}
+        >
           &times;
         </button>
       </li>
@@ -32,11 +35,13 @@ class PlanetListItem extends Component {
 }
 
 PlanetListItem.propTypes = {
-  deletePlanet: PropTypes.func.isRequired
+  _id: PropTypes.string.isRequired,
+  deletePlanet: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
-  planet: state.planet
+  planet: state.planet,
 })
 
-export default connect(mapStateToProps, { deletePlanet })(PlanetListItem)
+export default connect (mapStateToProps, {deletePlanet}) (PlanetListItem)

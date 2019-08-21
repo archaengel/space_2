@@ -1,15 +1,17 @@
+/* globals NASA_API_KEY */
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class ApiContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super (props)
 
     this.state = {
-      apiSrc: "",
-      apiCaption: "",
-      apiTitle: "",
-      date: props.date || ""
-    } 
+      apiSrc: '',
+      apiCaption: '',
+      apiTitle: '',
+      date: props.date || '',
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -19,23 +21,22 @@ class ApiContainer extends React.Component {
   }
 
   callApi() {
-    fetch(
-      `https://api.nasa.gov/planetary/apod?` +
-      `date=${ this.state.date }&` +
-      `api_key=${ NASA_API_KEY }`
+    fetch (
+      'https://api.nasa.gov/planetary/apod?' +
+      `date=${this.state.date}&` +
+      `api_key=${NASA_API_KEY}`
       )
-      .then(res => res.json())
-      .then(res => this.setState({
-        apiSrc: res.url,
+      .then (res => res.json ())
+      .then (res => this.setState ({apiSrc: res.url,
         apiCaption: res.explanation,
         apiTitle: res.title,
         apiDate: res.date,
-        apiCopyright: res.copyright || "Public Domain" }))
-      .catch(err => err)
+        apiCopyright: res.copyright || 'Public Domain'}))
+      .catch (err => err)
   }
 
   componentDidMount() {
-    this.callApi()
+    this.callApi ()
   }
 
   render() {
@@ -59,6 +60,10 @@ class ApiContainer extends React.Component {
       </div>
     )
   }
+}
+
+ApiContainer.propTypes = {
+  date: PropTypes.string,
 }
 
 export default ApiContainer

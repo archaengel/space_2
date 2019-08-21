@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { deletePost } from '../actions/postActions'
-import { Link, withRouter } from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {deletePost} from '../actions/postActions'
+import {Link, withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 class PostListItem extends Component {
   constructor(props) {
-    super(props)
+    super (props)
 
     this.state = {
-      redirect: false
+      redirect: false,
     }
 
-    this.onDeleteClick = this.onDeleteClick.bind(this)
+    this.onDeleteClick = this.onDeleteClick.bind (this)
   }
 
   onDeleteClick(id) {
-    this.props.deletePost(id)
+    this.props.deletePost (id)
   }
 
   render() {
@@ -41,19 +41,19 @@ class PostListItem extends Component {
             </label>
             <ul className='drop-menu'>
               <li onClick={this.onEditClick}>
-                <Link 
+                <Link
                   className='edit-link'
                   to={{
                     pathname: '/posts/edit',
                     state: {
                       from: location,
-                      post: { _id, body, title }
-                    }
+                      post: {_id, body, title},
+                    },
                   }}>edit</Link>
               </li>
               <li>
                 <button
-                  onClick={this.onDeleteClick.bind(this, _id)}
+                  onClick={this.onDeleteClick.bind (this, _id)}
                   className='delete-post-link'
                 >
                   delete
@@ -71,11 +71,17 @@ class PostListItem extends Component {
 }
 
 PostListItem.propTypes = {
-  deletePost: PropTypes.func.isRequired
+  _id: PropTypes.string.isRequired,
+  createdAt: PropTypes.string,
+  body: PropTypes.string.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
-  planet: state.planet
+  planet: state.planet,
 })
 
-export default withRouter(connect(mapStateToProps, { deletePost })(PostListItem))
+export default withRouter (
+  connect (mapStateToProps, {deletePost}) (PostListItem))

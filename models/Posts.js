@@ -1,10 +1,10 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-let PostSchema = new Schema({
+const PostSchema = new Schema ({
   authorId: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
@@ -13,14 +13,14 @@ let PostSchema = new Schema({
   body: {
     type: String,
     maxlength: 5000,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 })
 
-const Post = mongoose.model('post', PostSchema)
+const Post = mongoose.model ('post', PostSchema)
 
 export default Post

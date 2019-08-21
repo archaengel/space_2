@@ -1,8 +1,15 @@
-import { GET_POSTS, DELETE_POST, ADD_POST, EDIT_POST, POST_LOADED, POST_LOADING } from '../actions/types'
+import {
+  GET_POSTS,
+  DELETE_POST,
+  ADD_POST,
+  EDIT_POST,
+  POST_LOADED,
+  POST_LOADING,
+} from '../actions/types'
 
 const initialState = {
   posts: [],
-  isLoading: false
+  isLoading: false,
 }
 
 export default function(state = initialState, action) {
@@ -10,33 +17,34 @@ export default function(state = initialState, action) {
     case GET_POSTS:
       return {
         ...state,
-        posts: [...action.payload]
+        posts: [...action.payload],
       }
     case POST_LOADING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       }
     case POST_LOADED:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
       }
     case ADD_POST:
       return {
         ...state,
-        posts: [action.payload, ...state.posts]
+        posts: [action.payload, ...state.posts],
       }
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== action.payload)
+        posts: state.posts.filter (post => post._id !== action.payload),
       }
     case EDIT_POST:
-      const filteredState = state.posts.filter((post) => post._id !== action.payload._id)
+      /* eslint-disable-next-line */
+      const filteredState = state.posts.filter (post => post._id !== action.payload._id)
       return {
         ...state,
-        posts: [{...action.payload}, ...filteredState]
+        posts: [{...action.payload}, ...filteredState],
       }
     default:
       return state

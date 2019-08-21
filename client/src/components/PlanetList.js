@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { getPlanets, addPlanet } from '../actions/planetActions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {getPlanets, addPlanet} from '../actions/planetActions'
 import PropTypes from 'prop-types'
 import PlanetListItem from './PlanetListItem'
 
 class PlanetList extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super (props)
   }
 
   shouldComponentUpdate(nextProps) {
@@ -16,20 +16,21 @@ class PlanetList extends Component {
   }
 
   componentDidMount() {
-    this.props.getPlanets()
+    this.props.getPlanets ()
   }
 
   render() {
-    const { planets } = this.props.planet
+    const {planets} = this.props.planet
+    const empty = (
+      <p className='empty-list'>
+        You don&apos;t have any planets yet. Try adding some...
+      </p>)
     return (
       <ul className="planet-list" >
         <h2 className="planet-list-title">Planet List</h2>
-        { planets.length === 0
-          ? <p className='empty-list'>You don't have any planets yet. Try adding some...</p>
-          : planets.map((p) => (
-            <PlanetListItem key={p._id} {...p}/>
-          )) 
-        }
+        { planets.length === 0 ? empty :
+          /* otherwise */       planets
+            .map (p => (<PlanetListItem key={p._id} {...p}/>))}
       </ul>
     )
   }
@@ -38,15 +39,15 @@ class PlanetList extends Component {
 PlanetList.propTypes = {
   getPlanets: PropTypes.func.isRequired,
   addPlanet: PropTypes.func.isRequired,
-  planet: PropTypes.object.isRequired
+  planet: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   planet: state.planet,
-  auth: state.auth
+  auth: state.auth,
 })
 
-export default connect(
+export default connect (
   mapStateToProps,
-  { getPlanets, addPlanet }
-)(PlanetList)
+  {getPlanets, addPlanet}
+) (PlanetList)

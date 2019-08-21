@@ -1,3 +1,4 @@
+/* eslint-env browser */
 import {
   USER_LOADING,
   USER_LOADED,
@@ -6,14 +7,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
-  AUTH_ERROR
+  AUTH_ERROR,
 } from '../actions/types'
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem ('token'),
   isLoading: false,
   isAuthenticated: null,
-  user: null
+  user: null,
 }
 
 export default function(state = initialState, action) {
@@ -21,34 +22,34 @@ export default function(state = initialState, action) {
     case USER_LOADING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       }
     case USER_LOADED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true,
-        user: action.payload
+        user: action.payload,
       }
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload.token)
+      localStorage.setItem ('token', action.payload.token)
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
       }
     case AUTH_ERROR:
     case REGISTER_FAIL:
     case LOGOUT_SUCCESS:
     case LOGIN_FAIL:
-      localStorage.removeItem('token')
+      localStorage.removeItem ('token')
       return {
         token: null,
         user: null,
         isAuthenticated: false,
-        isLoading: false
+        isLoading: false,
       }
     default:
       return state

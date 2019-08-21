@@ -1,11 +1,9 @@
 import React from 'react'
 
-const About = () => {
-  return (
+const About = () => (
     <React.Fragment>
       <p>About</p>
     </React.Fragment>
   )
-}
 
 export default About

@@ -1,38 +1,38 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { addPost } from '../actions/postActions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {addPost} from '../actions/postActions'
 import PropTypes from 'prop-types'
 
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 class PostAddForm extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super (props)
     this.state = {
       title: '',
       body: '',
-      redirectToReferrer: false
+      redirectToReferrer: false,
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.boxRef = React.createRef()
+    this.handleChange = this.handleChange.bind (this)
+    this.handleSubmit = this.handleSubmit.bind (this)
+    this.boxRef = React.createRef ()
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState ({[e.target.name]: e.target.value})
   }
 
-  handleSubmit(e){
-    e.preventDefault()
+  handleSubmit(e) {
+    e.preventDefault ()
     const newPost = {
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
     }
     if (newPost) {
-      this.props.addPost(newPost)
+      this.props.addPost (newPost)
     }
-    this.setState({title: '', body: '', redirectToReferrer: true})
+    this.setState ({title: '', body: '', redirectToReferrer: true})
   }
 
   // Update if name is input or planet is added, but not deleted
@@ -53,13 +53,13 @@ class PostAddForm extends Component {
   }
 
   render() {
-    const { redirectToReferrer } = this.state
-    const { from } = this.props.location.state || { from: { pathname: '/' }}
+    const {redirectToReferrer} = this.state
+    const {from} = this.props.location.state || {from: {pathname: '/'}}
     if (redirectToReferrer) return <Redirect to={from} />
     return (
       <React.Fragment>
         <pre className="form-state">
-          {JSON.stringify(this.state, null, 2)}
+          {JSON.stringify (this.state, null, 2)}
         </pre>
         <form onSubmit={this.handleSubmit} className="post-form">
           <label
@@ -108,13 +108,15 @@ class PostAddForm extends Component {
 
 PostAddForm.propTypes = {
   addPost: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
+  location: PropTypes.object,
 }
 
-const mapStateToProps = (state) => ({
-  post: state.post
+const mapStateToProps = state => ({
+  post: state.post,
 })
 
-export default connect(
+export default connect (
   mapStateToProps,
-  { addPost }
-)(PostAddForm)
+  {addPost}
+) (PostAddForm)

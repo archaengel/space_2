@@ -1,16 +1,11 @@
 import React from 'react'
 
 import ApiList from './ApiList'
-import PlanetList from './PlanetList'
-import PlanetForm from './PlanetForm'
-import PostList from './PostList'
 
-const Body = () => {
-  return (
+const Body = () => (
     <React.Fragment>
       <ApiList />
     </React.Fragment>
   )
-}
 
 export default Body
