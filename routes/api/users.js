@@ -7,7 +7,7 @@ import {
   checkUnique,
   genToken,
   saltAndHash,
-  save,
+  saveOr,
 } from '../../utils/helpers'
 
 const router = express.Router ()   // Initialize router
@@ -32,10 +32,10 @@ router.post ('/', (req, res) => {
     .map (S.prop ('password'))
     .chain (saltAndHash (13))
     .map (pw => new User ({name, email, password: pw}))
-    .chain (save)
+    .chain (saveOr ({status: 400, message: 'Error saving user'}))
     .chain (r => genToken (r)
       .bimap (
-        _ => ({status: 400, message: 'Error signing token'}),
+        S.K ({status: 400, message: 'Error signing token'}),
         token => ({
           token,
           user: {name: r.name, email: r.email, password: r.password},

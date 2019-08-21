@@ -59,9 +59,13 @@ const hash = Future.encaseN2 (bcrypt.hash)
 export const saltAndHash = n => pw => salt (n).chain (hash (pw))
 
 // save :: {} -> Future Error {}
-export const save = user => Future ((rej, res) => {
-  user.save ().then (res).catch (rej)
+export const save = model => Future ((rej, res) => {
+  model.save ().then (res).catch (rej)
 })
+
+//    saveOr :: Object -> Object -> Future Object Object
+export const saveOr = error => user => save (user)
+  .mapRej (S.K (error))
 
 // signToken :: String -> {} | nil -> {} -> Future Error String
 export const signToken = secret => params => user => Future.encaseN3

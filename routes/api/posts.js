@@ -1,6 +1,8 @@
 import express from 'express'
 const router = express.Router ()
 
+import {saveOr} from '../../utils/helpers'
+
 import Post from '../../models/Posts'
 
 // Import middlware
@@ -10,28 +12,19 @@ import auth from '../../middleware/auth'
 // @desc  Create new post
 // @access Private
 router.post ('/', auth, (req, res) => {
-  const {
-    title,
-    body,
-  } = req.body
-
+  const {title, body} = req.body
+  const saveError = {status: 400, message: 'Error saving post'}
   const authorId = req.user.id
-
-  const newPost = new Post ({
-    title,
-    body,
-    authorId,
-  })
+  const newPost = new Post ({title, body, authorId})
 
   // Save new post
-  newPost
-    .save ()
-    .then (savePost => {
-      res.json (savePost)
-    })
-    .catch (err => {
-      res.status (400).json ({msg: 'Error saving post'})
-    })
+  const futSave = saveOr (saveError) (newPost)
+
+  futSave
+  .fork (
+    e => res.status (e.status).json ({msg: e.message}),
+    res.json
+  )
 })
 
 // @route   GET /api/posts/user
