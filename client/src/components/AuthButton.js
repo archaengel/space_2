@@ -43,7 +43,7 @@ class AuthButton extends Component {
 }
 
 AuthButton.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
   loadUser: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   location: PropTypes.object,

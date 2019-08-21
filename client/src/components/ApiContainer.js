@@ -11,6 +11,7 @@ class ApiContainer extends React.Component {
       apiCaption: '',
       apiTitle: '',
       date: props.date || '',
+      mediaType: '',
     }
   }
 
@@ -31,6 +32,7 @@ class ApiContainer extends React.Component {
         apiCaption: res.explanation,
         apiTitle: res.title,
         apiDate: res.date,
+        mediaType: res.media_type,
         apiCopyright: res.copyright || 'Public Domain'}))
       .catch (err => err)
   }
@@ -40,12 +42,20 @@ class ApiContainer extends React.Component {
   }
 
   render() {
+    const image = (<img className="api-img" src={ this.state.apiSrc } />)
+    const video = (
+      <iframe
+        className="api-iframe"
+        enablejsapi="true"
+        src={this.state.apiSrc}>
+      </iframe>)
     return (
       <div className="api-container">
         <div className="api-card-wrapper">
           <h2 className="api-title">{ this.state.apiTitle }</h2>
           <div className="api-img-wrapper">
-            <img className="api-img" src={ this.state.apiSrc } />
+            { this.state.mediaType === 'image' ? image :
+              /* otherwise */                    video }
           </div>
           <p className="api-caption">{ this.state.apiCaption }</p>
           <footer className="post-footer">

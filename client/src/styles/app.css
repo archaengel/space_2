@@ -137,11 +137,18 @@ body {
   text-align: center;
 }
 
+.api-iframe,
 .api-img {
   width: 100%;
   background: grey;
   animation: fade-width 0.15s;
 }
+
+.api-iframe {
+  height: 100%;
+  border: none;
+}
+
 
 @keyframes fade-width {
   0% {
