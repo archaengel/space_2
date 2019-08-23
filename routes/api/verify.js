@@ -61,8 +61,7 @@ router.post ('/', (req, res) => {
   const futToken = getToken ({token})
   .chain (maybeToFuture (noTokenErr))
 
-  // Find assoc user in db || 'User not found for this token'
-  // Then
+  // Find assoc user in db || 'User not found for this token', then
   // Check if user is verified || 'This user is already verified'
   const futUser = futToken
   .chain (token => getUser ({_id: token.userId, email}))
