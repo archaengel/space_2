@@ -1,0 +1,9 @@
+# Ignore generated builds
+dist/*
+client/dist/*
+
+# Ignore node_modules in client dir
+client/node_modules/*
+
+# Ignore config files
+*.config.*

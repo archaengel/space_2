@@ -1,74 +1,74 @@
 // Import modules
 import express from 'express'
 import mongoose from 'mongoose'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 import path from 'path'
 import Future from 'fluture'
-import { create, env } from 'sanctuary'
-import { env as flutureEnv } from 'fluture-sanctuary-types'
+import {create, env} from 'sanctuary'
+import {env as flutureEnv} from 'fluture-sanctuary-types'
+import {maybeToFuture, toMaybe} from './utils/helpers'
 
-const S = create({ checkTypes: true, env: env.concat(flutureEnv) })
+const S = create ({checkTypes: true, env: env.concat (flutureEnv)})
 
 // Import routes
-import usersRouter, { toMaybe, eitherToFuture } from './routes/api/users'
-import planetsRouter from './routes/api/planets'
 import authRouter from './routes/api/auth'
+import planetsRouter from './routes/api/planets'
 import postRouter from './routes/api/posts'
+import usersRouter from './routes/api/users'
+import verifyRouter from './routes/api/verify'
 
 const port = process.env.PORT || 5000
 
-const isMain = (main) => S.isJust (toMaybe (main)) 
+const isMain = main => S.isJust (toMaybe (main))
 
 // initialize server
-const app = express()
+const app = express ()
 
 // Connect to db
 export const uri = process.env.MONGODB_URI
 
 export const dbOptions = {
-  "useNewUrlParser": true,
-  "useCreateIndex": true,
-  "useFindAndModify": false
+  'useNewUrlParser': true,
+  'useCreateIndex': true,
+  'useFindAndModify': false,
+  'autoIndex': false,
 }
 
 const eventualConnection = Future.encaseN2 (mongoose.connect)
 
-const startDBIfCommandline = (uri) =>
-  (options) =>
-  (main) => S.compose (eitherToFuture) (S.maybeToEither ('Testing')) (toMaybe (main))
+const startDBIfCommandline = uri =>
+  options =>
+  main => maybeToFuture ('Testing') (toMaybe (main))
     .chain (_ => eventualConnection (uri) (options))
 
 startDBIfCommandline (uri) (dbOptions) (process.mainModule)
-  .fork(
+  .fork (
     console.error,
-    _ => console.log('>>> 🛢  DB connected...')
+    _ => console.log ('>>> 🛢  DB connected...')
   )
 
-app.use(express.json())
+app.use (express.json ())
 
-app.get('/config.js', (req, res) => {
-  res.send("const NASA_API_KEY='"+process.env.NASA_API_KEY+"'")
+app.get ('/config.js', (req, res) => {
+  res.send ("const NASA_API_KEY='" + process.env.NASA_API_KEY + "'")
 })
 
 // Add api routers
-app.use('/api/users', usersRouter)
-app.use('/api/planets', planetsRouter)
-app.use('/api/auth', authRouter)
-app.use('/api/posts', postRouter)
+app.use ('/api/users', usersRouter)
+app.use ('/api/planets', planetsRouter)
+app.use ('/api/auth', authRouter)
+app.use ('/api/verify', verifyRouter)
+app.use ('/api/posts', postRouter)
 
-app.use(express.static('client/dist'))
+app.use (express.static ('client/dist'))
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
+app.get ('*', (req, res) => {
+  res.sendFile (path.resolve (__dirname, 'client', 'dist', 'index.html'))
 })
 
 // Listen on port
-const startServerIfCommandline = (main) =>
-  (app) =>
-  (port) => isMain (main) ?
-    S.Just (app.listen(port, () => console.log (`>>> 📡 Listening on ${port}...`))) :
-    S.Nothing
+const startServerIfCommandline = main => app => port =>
+  isMain (main) ?  S.Just (
+      app.listen (port, _ => console.log (`>>> 📡 Listening on ${port}...`))) :
+    /* otherwise */ S.Nothing
 
 startServerIfCommandline (process.mainModule) (app) (port)
-

@@ -1,63 +1,63 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { register } from '../actions/authActions'
-import { clearErrors, returnErrors } from '../actions/errorActions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {register} from '../actions/authActions'
+import {clearErrors, returnErrors} from '../actions/errorActions'
 import PropTypes from 'prop-types'
-import { Redirect, Link } from 'react-router-dom'
-import Login from './Login'
+import {Redirect, Link} from 'react-router-dom'
 
 class Register extends Component {
   constructor(props) {
-    super(props)
+    super (props)
 
     this.state = {
       name: '',
       email: '',
       password: '',
       confirmation: '',
-      msg: null
+      msg: null,
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind (this)
+    this.handleSubmit = this.handleSubmit.bind (this)
   }
 
   handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
+    this.setState ({
+      [e.target.name]: e.target.value,
     })
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    const { name, email, password, confirmation } = this.state
+    e.preventDefault ()
+    const {name, email, password, confirmation} = this.state
 
     if (password !== confirmation) {
-      this.props.returnErrors( { msg: 'Passwords do not match' }, 401, 'REGISTER_FAIL')
+      this.props.returnErrors (
+        {msg: 'Passwords do not match'}, 401, 'REGISTER_FAIL')
     } else {
-      this.props.register({ name, email, password })
+      this.props.register ({name, email, password})
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props
+    const {error} = this.props
 
     if (error !== prevProps.error) {
       if (error.id === 'REGISTER_FAIL') {
-        this.setState({ msg: error.msg })
+        this.setState ({msg: error.msg})
       } else {
-        this.setState({ msg: null })
+        this.setState ({msg: null})
       }
     }
   }
 
   render() {
-    const { msg } = this.state
+    const {msg} = this.state
     return (
       <React.Fragment>
         { msg ? (<div className='auth-alert'>{msg}</div>) : null }
         <pre className='form-state' >
-          {JSON.stringify(this.state, null, 2)}
+          {JSON.stringify (this.state, null, 2)}
         </pre>
         <form
           className='planet-form'
@@ -67,7 +67,7 @@ class Register extends Component {
             className='planet-input-label'
             htmlFor='name'
           >
-            Name: 
+            Name:
           </label>
           <input
             className='planet-input'
@@ -81,7 +81,7 @@ class Register extends Component {
             className='planet-input-label'
             htmlFor='email'
           >
-            Email: 
+            Email:
           </label>
           <input
             className='planet-input'
@@ -95,7 +95,7 @@ class Register extends Component {
             className='planet-input-label'
             htmlFor='password'
           >
-            Password: 
+            Password:
           </label>
           <input
             className='planet-input'
@@ -109,7 +109,7 @@ class Register extends Component {
             className='planet-input-label'
             htmlFor='password-confirmation'
           >
-            Password Confirmation: 
+            Password Confirmation:
           </label>
           <input
             className='planet-input'
@@ -141,12 +141,15 @@ Register.propTypes = {
   register: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   returnErrors: PropTypes.func.isRequired,
-  error: PropTypes.object.isRequired
+  error: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.error
+  error: state.error,
 })
 
-export default connect(mapStateToProps, { register, clearErrors, returnErrors })(Register)
+export default connect (
+  mapStateToProps,
+  {register, clearErrors, returnErrors}) (Register)

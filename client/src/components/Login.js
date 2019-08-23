@@ -1,63 +1,63 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { login } from '../actions/authActions'
-import { clearErrors } from '../actions/errorActions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {login} from '../actions/authActions'
+import {clearErrors} from '../actions/errorActions'
 import PropTypes from 'prop-types'
-import { Link, Redirect } from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super (props)
 
     this.state = {
       email: '',
       password: '',
       msg: null,
-      redirectToReferrer: false
+      redirectToReferrer: false,
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind (this)
+    this.handleSubmit = this.handleSubmit.bind (this)
   }
 
   handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
+    this.setState ({
+      [e.target.name]: e.target.value,
     })
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    const { email, password } = this.state
+    e.preventDefault ()
+    const {email, password} = this.state
 
-    this.props.login({ email, password })
+    this.props.login ({email, password})
   }
 
   componentDidUpdate(prevProps) {
-    const { error, isAuthenticated } = this.props
+    const {error, isAuthenticated} = this.props
 
     if (error !== prevProps.error) {
       if (error.id === 'LOGIN_FAIL') {
-        console.log(error.msg)
-        this.setState({ msg: error.msg })
+        console.log (error.msg)
+        this.setState ({msg: error.msg})
       } else {
-        this.setState({ msg: null })
+        this.setState ({msg: null})
       }
     }
 
     if (isAuthenticated) {
-      this.setState({ redirectToReferrer: true })
+      this.setState ({redirectToReferrer: true})
     }
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' }}
-    const { redirectToReferrer, msg } = this.state
+    const {from} = this.props.location.state || {from: {pathname: '/'}}
+    const {redirectToReferrer, msg} = this.state
     return (
       <React.Fragment>
         { msg ? (<div className='auth-alert'>{msg}</div>) : null }
         <pre className='form-state' >
-          {JSON.stringify(this.state, null, 2)}
+          {JSON.stringify (this.state, null, 2)}
         </pre>
         <form
           className='planet-form'
@@ -67,7 +67,7 @@ class Login extends Component {
             className='planet-input-label'
             htmlFor='email'
           >
-            Email: 
+            Email:
           </label>
           <input
             className='planet-input'
@@ -81,7 +81,7 @@ class Login extends Component {
             className='planet-input-label'
             htmlFor='password'
           >
-            Password: 
+            Password:
           </label>
           <input
             className='planet-input'
@@ -99,7 +99,7 @@ class Login extends Component {
         </form>
         <footer className='auth-footer'>
           <p>
-            Don't have an account yet?
+            Don&apos;t have an account yet?
           </p>
           <Link to='/register' >Sign Up.</Link>
         </footer>
@@ -113,12 +113,13 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  error: PropTypes.object.isRequired
+  error: PropTypes.object.isRequired,
+  location: PropTypes.object,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.error
+  error: state.error,
 })
 
-export default connect(mapStateToProps, { login, clearErrors })(Login)
+export default connect (mapStateToProps, {login, clearErrors}) (Login)
