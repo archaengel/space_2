@@ -10,10 +10,11 @@ import {maybeToFuture, toMaybe} from './utils/helpers'
 const S = create ({checkTypes: true, env: env.concat (flutureEnv)})
 
 // Import routes
-import usersRouter from './routes/api/users'
-import planetsRouter from './routes/api/planets'
 import authRouter from './routes/api/auth'
+import planetsRouter from './routes/api/planets'
 import postRouter from './routes/api/posts'
+import usersRouter from './routes/api/users'
+import verifyRouter from './routes/api/verify'
 
 const port = process.env.PORT || 5000
 
@@ -29,6 +30,7 @@ export const dbOptions = {
   'useNewUrlParser': true,
   'useCreateIndex': true,
   'useFindAndModify': false,
+  'autoIndex': false,
 }
 
 const eventualConnection = Future.encaseN2 (mongoose.connect)
@@ -54,6 +56,7 @@ app.get ('/config.js', (req, res) => {
 app.use ('/api/users', usersRouter)
 app.use ('/api/planets', planetsRouter)
 app.use ('/api/auth', authRouter)
+app.use ('/api/verify', verifyRouter)
 app.use ('/api/posts', postRouter)
 
 app.use (express.static ('client/dist'))

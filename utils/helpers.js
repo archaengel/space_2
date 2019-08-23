@@ -11,6 +11,7 @@ const S = create ({// Initialize type environment
   env: env.concat (flutureEnv),
 })
 
+import Token from '../models/Tokens'
 import User from '../models/Users'
 
 // toMaybe :: a -> Maybe a
@@ -28,13 +29,19 @@ export const maybeToFuture = left => S.compose
 // getModel :: String -> {} -> Future Error (Maybe {})
 export const getModel = model => params => Future ((rej, res) => {
   model
-    .findOne ({...params})
+    .findOne (params)
     .then (S.compose (res) (toMaybe))
     .catch (rej)
 })
 
 // getUser :: {} -> Future Error (Maybe {})
 export const getUser = getModel (User)
+
+// getToken :: Object -> Future Object (Maybe Object)
+export const getToken = getModel (Token)
+
+//           err :: Number -> String -> Object
+export const err = status => message => ({status, message})
 
 // eitherNewUser :: {} -> Maybe {} -> Either String {}
 const eitherNewUser = user => S.maybe
@@ -64,13 +71,13 @@ export const save = model => Future ((rej, res) => {
 })
 
 //    saveOr :: Object -> Object -> Future Object Object
-export const saveOr = error => user => save (user)
+export const saveOr = error => model => save (model)
   .mapRej (S.K (error))
 
 // signToken :: String -> {} | nil -> {} -> Future Error String
-export const signToken = secret => params => user => Future.encaseN3
+export const signToken = secret => params => payload => Future.encaseN3
   (jwt.sign)
-  ({id: S.prop ('id') (user)})
+  (payload)
   (secret)
   (params)
 

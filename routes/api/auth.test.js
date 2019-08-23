@@ -4,6 +4,11 @@ import {
   validateUser,
 } from './auth'
 
+import {
+  logErr,
+  logPass,
+} from '../../utils/testHelpers'
+
 const unhashedPW = '123456'
 const hashedPW = '$2a$13$j5sRrJ7B3ATIF6kdZS7z.ehPiDXrZsatu/hzB3H92oMpBK34bAv6e'
 const user = {
@@ -18,16 +23,7 @@ describe ('Auth api', () => {
       .map (x => expect (x).toEqual (true))
 
     eventualTest
-      .fork (
-        e => {
-          console.error (e)
-          done ()
-        },
-        _ => {
-          console.log ('Tests passed')
-          done ()
-        }
-      )
+      .fork (logErr (done), logPass (done))
   })
 
   it ('validate user returns user', done => {
@@ -35,15 +31,6 @@ describe ('Auth api', () => {
       .map (x => expect (x).toMatchObject (user))
 
     eventualTest
-      .fork (
-        e => {
-          console.error (e)
-          done ()
-        },
-        _ => {
-          console.log ('Tests passed')
-          done ()
-        }
-      )
+      .fork (logErr (done), logPass (done))
   })
 })

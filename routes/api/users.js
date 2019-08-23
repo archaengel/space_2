@@ -33,7 +33,7 @@ router.post ('/', (req, res) => {
     .chain (saltAndHash (13))
     .map (pw => new User ({name, email, password: pw}))
     .chain (saveOr ({status: 400, message: 'Error saving user'}))
-    .chain (r => genToken (r)
+    .chain (r => genToken (S.prop ('id') (r))
       .bimap (
         S.K ({status: 400, message: 'Error signing token'}),
         token => ({

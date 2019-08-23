@@ -53,7 +53,7 @@ router.post ('/', (req, res) => {
   const eventualResponse = getUser ({email})
     .chain (maybeToFuture ({status: 400, message: 'User does not exist'}))
     .chain (validateUser (password))
-    .chain (r => genToken (r)
+    .chain (r => genToken (S.prop ('id') (r))
       .bimap (
         _ => ({status: 400, message: 'Error signing token'}),
         token => ({token, user: {id: r._id, name: r.name, email: r.email}})))
