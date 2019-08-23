@@ -64,4 +64,4 @@ typings/
 *.swp
 
 # build dir
-dist/* 
+dist 
