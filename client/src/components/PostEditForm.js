@@ -59,9 +59,6 @@ class PostEditForm extends Component {
     if (redirectToReferrer) return <Redirect to={from} />
     return (
       <React.Fragment>
-        <pre className="form-state">
-          {JSON.stringify (this.state, null, 2)}
-        </pre>
         <form onSubmit={this.handleSubmit} className="post-form">
           <label
             className="post-input-label"

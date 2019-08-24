@@ -56,9 +56,6 @@ class Login extends Component {
     return (
       <React.Fragment>
         { msg ? (<div className='auth-alert'>{msg}</div>) : null }
-        <pre className='form-state' >
-          {JSON.stringify (this.state, null, 2)}
-        </pre>
         <form
           className='planet-form'
           onSubmit={this.handleSubmit}

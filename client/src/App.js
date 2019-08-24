@@ -11,7 +11,6 @@ import Header from './components/Header'
 import Body from './components/Body'
 import Register from './components/Register'
 import Login from './components/Login'
-import PlanetPage from './components/PlanetPage'
 import PostList from './components/PostList'
 import PostAddForm from './components/PostAddForm'
 import PostEditForm from './components/PostEditForm'
@@ -28,7 +27,6 @@ const App = () => (
           <Route exact path='/posts' component={PostList} />
           <Route path='/posts/add' component={PostAddForm} />
           <Route path='/posts/edit' component={PostEditForm} />
-          <Route path='/planets' component={PlanetPage} />
         </Switch>
       </div>
     </Provider>

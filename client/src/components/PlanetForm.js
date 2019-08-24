@@ -44,9 +44,6 @@ class PlanetForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <pre className="form-state">
-          {JSON.stringify (this.state)}
-        </pre>
         <form onSubmit={this.handleSubmit} className="planet-form">
           <label
             className="planet-input-label"
