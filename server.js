@@ -1,41 +1,74 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
+// Import modules
+import express from 'express'
+import mongoose from 'mongoose'
+import path from 'path'
+import Future from 'fluture'
+import {create, env} from 'sanctuary'
+import {env as flutureEnv} from 'fluture-sanctuary-types'
+import {maybeToFuture, toMaybe} from './utils/helpers'
 
-const User = require('./models/Users')
+const S = create ({checkTypes: true, env: env.concat (flutureEnv)})
 
-const uri = process.env.MONGODB_URI
+// Import routes
+import authRouter from './routes/api/auth'
+import planetsRouter from './routes/api/planets'
+import postRouter from './routes/api/posts'
+import usersRouter from './routes/api/users'
+import verifyRouter from './routes/api/verify'
 
-const options = {
-  "useNewUrlParser": true
+const port = process.env.PORT || 5000
+
+const isMain = main => S.isJust (toMaybe (main))
+
+// initialize server
+const app = express ()
+
+// Connect to db
+export const uri = process.env.MONGODB_URI
+
+export const dbOptions = {
+  'useNewUrlParser': true,
+  'useCreateIndex': true,
+  'useFindAndModify': false,
+  'autoIndex': false,
 }
 
-const db = mongoose.connect(uri, options)
-  .then(() => console.log('db connected'))
-  .catch(() => console.log(err.message))
+const eventualConnection = Future.encaseN2 (mongoose.connect)
 
-const app = express()
+const startDBIfCommandline = uri =>
+  options =>
+  main => maybeToFuture ('Testing') (toMaybe (main))
+    .chain (_ => eventualConnection (uri) (options))
 
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
+startDBIfCommandline (uri) (dbOptions) (process.mainModule)
+  .fork (
+    console.error,
+    _ => console.log ('>>> 🛢  DB connected...')
+  )
 
-app.get('/', (req, res) => res.send('<h1>Hello, World!</h1>'))
+app.use (express.json ())
 
-app.post('/api/user/new', (req, res) => {
-  let newUser = new User({
-    username: req.body.username || req.query.username
-  })
-
-  newUser.save((err, savedUser) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(savedUser)
-      res.json(savedUser)
-    }
-  })
+app.get ('/config.js', (req, res) => {
+  res.send ("const NASA_API_KEY='" + process.env.NASA_API_KEY + "'")
 })
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`>>> Listening on ${ process.env.PORT || 5000}...`)
+// Add api routers
+app.use ('/api/users', usersRouter)
+app.use ('/api/planets', planetsRouter)
+app.use ('/api/auth', authRouter)
+app.use ('/api/verify', verifyRouter)
+app.use ('/api/posts', postRouter)
+
+app.use (express.static ('client/dist'))
+
+app.get ('*', (req, res) => {
+  res.sendFile (path.resolve (__dirname, 'client', 'dist', 'index.html'))
 })
+
+// Listen on port
+const startServerIfCommandline = main => app => port =>
+  isMain (main) ?  S.Just (
+      app.listen (port, _ => console.log (`>>> 📡 Listening on ${port}...`))) :
+    /* otherwise */ S.Nothing
+
+startServerIfCommandline (process.mainModule) (app) (port)
