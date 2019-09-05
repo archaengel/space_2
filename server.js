@@ -6,6 +6,7 @@ import Future from 'fluture'
 import {create, env} from 'sanctuary'
 import {env as flutureEnv} from 'fluture-sanctuary-types'
 import {maybeToFuture, toMaybe} from './utils/helpers'
+import forceSsl from './middleware/forceSsl'
 
 const S = create ({checkTypes: true, env: env.concat (flutureEnv)})
 
@@ -17,6 +18,7 @@ import usersRouter from './routes/api/users'
 import verifyRouter from './routes/api/verify'
 
 const port = process.env.PORT || 5000
+const nodeEnv = process.env.NODE_ENV || 'development'
 
 const isMain = main => S.isJust (toMaybe (main))
 
@@ -45,6 +47,10 @@ startDBIfCommandline (uri) (dbOptions) (process.mainModule)
     console.error,
     _ => console.log ('>>> 🛢  DB connected...')
   )
+
+if (nodeEnv === 'production') {
+  app.use (forceSsl)
+}
 
 app.use (express.json ())
 
