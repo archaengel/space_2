@@ -185,7 +185,6 @@ body {
 .api-img-wrapper {
   width: 100%;
   margin: 0 0;
-  flex: 0 1 50vw;
   z-index: 1;
 }
 
