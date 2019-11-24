@@ -558,7 +558,8 @@ body {
 
   .planet-form,
   .post-form {
-    width: 100%;
+      width: calc(100% - 2rem);
+      
   }
 
   .delete-post-button {
@@ -578,7 +579,7 @@ body {
   .post-input,
   .post-textarea {
     border-bottom-color: var(--mobile-secondary);
-    width: calc(100% - 0.5rem);
+    width: 100%;
   }
 
   .planet-button,
