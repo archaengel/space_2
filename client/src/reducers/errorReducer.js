@@ -14,7 +14,7 @@ export default function(state = initialState, action) {
     case GET_ERRORS:
       return {
         msg: action.payload.msg.msg,
-        status: action.payload.statsu,
+        status: action.payload.status,
         id: action.payload.id,
       }
     case CLEAR_ERRORS:
