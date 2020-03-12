@@ -2844,16 +2844,16 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 fluture-sanctuary-types@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/fluture-sanctuary-types/-/fluture-sanctuary-types-4.0.0.tgz#86c50ed405284e8cd7794ba830978179cdd5d902"
-  integrity sha512-0wFDA92rLWc+6rKGqdUj1oRoppF2Zoslaaepq5cly1LBGEuVo62Wp9BZlD+ltMtyVYBHjeJ3NBLQF6TD3ARuRg==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/fluture-sanctuary-types/-/fluture-sanctuary-types-4.1.1.tgz#40d7e41f6e68e9cb5de7a035058890ce42676350"
+  integrity sha512-bwHexPSjG0GIdKxZVTiB85PqXwlMZxMcVCi47z9elMEDJ5+uLvsO+o9wXgzLd9yF8YpFmJo1843Y7799enuXZw==
   dependencies:
     sanctuary-type-identifiers "^2.0.0"
 
 fluture@^11.0.2:
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/fluture/-/fluture-11.0.2.tgz#0605a3c18f0566c9ed4ceb77ccec476b27c70f2c"
-  integrity sha512-bPE4MYozgZ1cPbItZ0gFQI8qi1wBGFx67C/J0a62aLC7QfJNxZ7lFaOwfVkRfgwY9D+v0/1fA6PG8QRDc7BrKA==
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-11.0.3.tgz#040ccdcc48952a1bfe60187834b2ebdc20b92ccc"
+  integrity sha512-6YrDSkWVfzy2dS4AxrWUIBJCK905sfVjfYS0r9Nn9TnloArxOwYxgMvlmdgLbQrjhE26M+bzikAACzI6MxVWuw==
   dependencies:
     concurrify "^1.1.1"
     sanctuary-show "^1.0.0"

@@ -2,7 +2,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import path from 'path'
-import Future from 'fluture'
+import {node} from 'fluture'
 import {create, env} from 'sanctuary'
 import {env as flutureEnv} from 'fluture-sanctuary-types'
 import {maybeToFuture, toMaybe} from './utils/helpers'
@@ -29,24 +29,24 @@ const app = express ()
 export const uri = process.env.MONGODB_URI
 
 export const dbOptions = {
-  'useNewUrlParser': true,
-  'useCreateIndex': true,
-  'useFindAndModify': false,
-  'autoIndex': false,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  autoIndex: false,
 }
 
-const eventualConnection = Future.encaseN2 (mongoose.connect)
+const eventualConnection =  uri => options =>
+  node (cb => mongoose.connect (uri, options, cb))
 
-const startDBIfCommandline = uri =>
-  options =>
-  main => maybeToFuture ('Testing') (toMaybe (main))
-    .chain (_ => eventualConnection (uri) (options))
-
-startDBIfCommandline (uri) (dbOptions) (process.mainModule)
-  .fork (
-    console.error,
-    _ => console.log ('>>> 🛢  DB connected...')
+const startDBIfCommandline = uri => options => main =>
+  maybeToFuture ('Testing') (toMaybe (main)).chain (_ =>
+    eventualConnection (uri) (options)
   )
+
+startDBIfCommandline (uri) (dbOptions) (process.mainModule).fork (
+  console.error,
+  _ => console.log ('>>> 🛢  DB connected...')
+)
 
 if (nodeEnv === 'production') {
   app.use (forceSsl)
@@ -73,8 +73,10 @@ app.get ('*', (req, res) => {
 
 // Listen on port
 const startServerIfCommandline = main => app => port =>
-  isMain (main) ?  S.Just (
-      app.listen (port, _ => console.log (`>>> 📡 Listening on ${port}...`))) :
-    /* otherwise */ S.Nothing
+  isMain (main)
+    ? S.Just (
+        app.listen (port, _ => console.log (`>>> 📡 Listening on ${port}...`))
+      )
+    : /* otherwise */ S.Nothing
 
 startServerIfCommandline (process.mainModule) (app) (port)
