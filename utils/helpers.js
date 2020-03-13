@@ -6,7 +6,8 @@ import Future from 'fluture'
 import {env as flutureEnv} from 'fluture-sanctuary-types'
 import {create, env} from 'sanctuary'
 
-const S = create ({// Initialize type environment
+const S = create ({
+  // Initialize type environment
   checkTypes: true,
   env: env.concat (flutureEnv),
 })
@@ -15,24 +16,24 @@ import Token from '../models/Tokens'
 import User from '../models/Users'
 
 // toMaybe :: a -> Maybe a
-export const toMaybe = x => x === null || x === undefined ? S.Nothing :
-  /* otherwise */                                           S.Just (x)
+export const toMaybe = x =>
+  x === null || x === undefined ? S.Nothing : /* otherwise */ S.Just (x)
 
 // eitherToFuture :: Either e r -> Future e r
 export const eitherToFuture = S.either (Future.reject) (Future.of)
 
 // maybeToFuture :: b -> Maybe a -> Future b a
-export const maybeToFuture = left => S.compose
-  (eitherToFuture)
-  (S.maybeToEither (left))
+export const maybeToFuture = left =>
+  S.compose (eitherToFuture) (S.maybeToEither (left))
 
 // getModel :: String -> {} -> Future Error (Maybe {})
-export const getModel = model => params => Future ((rej, res) => {
-  model
-    .findOne (params)
-    .then (S.compose (res) (toMaybe))
-    .catch (rej)
-})
+export const getModel = model => params =>
+  Future ((rej, res) => {
+    model
+      .findOne (params)
+      .then (S.compose (res) (toMaybe))
+      .catch (rej)
+  })
 
 // getUser :: {} -> Future Error (Maybe {})
 export const getUser = getModel (User)
@@ -44,17 +45,17 @@ export const getToken = getModel (Token)
 export const err = status => message => ({status, message})
 
 // eitherNewUser :: {} -> Maybe {} -> Either String {}
-const eitherNewUser = user => S.maybe
-  (S.Right ({...user}))
-  (_ => S.Left ({
-    status: 400,
-    message: 'User already exists',
-  }))
+const eitherNewUser = user =>
+  S.maybe (S.Right ({...user})) (_ =>
+    S.Left ({
+      status: 400,
+      message: 'User already exists',
+    })
+  )
 
 // checkUnique :: {} -> String -> Future Error {}
-export const checkUnique = user => S.compose
-  (S.chain (S.compose (eitherToFuture) (eitherNewUser (user))))
-  (getUser)
+export const checkUnique = user =>
+  S.compose (S.chain (S.compose (eitherToFuture) (eitherNewUser (user)))) (getUser)
 
 // salt :: Number -> Future Error String
 const salt = Future.encaseN (bcrypt.genSalt)
@@ -66,20 +67,26 @@ const hash = Future.encaseN2 (bcrypt.hash)
 export const saltAndHash = n => pw => salt (n).chain (hash (pw))
 
 // save :: {} -> Future Error {}
-export const save = model => Future ((rej, res) => {
-  model.save ().then (res).catch (rej)
-})
+export const save = model =>
+  Future ((rej, res) => {
+    model
+      .save ()
+      .then (res)
+      .catch (rej)
+  })
 
 //    saveOr :: Object -> Object -> Future Object Object
-export const saveOr = error => model => save (model)
-  .mapRej (S.K (error))
+export const saveOr = error => model => save (model).mapRej (S.K (error))
 
 // signToken :: String -> {} | nil -> {} -> Future Error String
-export const signToken = secret => params => payload => Future.encaseN3
-  (jwt.sign)
-  (payload)
-  (secret)
-  (params)
+export const signToken = secret => params => payload =>
+  Future.node (cb => jwt.sign (payload.toJSON (), secret, params, cb))
 
 // genToken :: {} -> Future Error String
 export const genToken = signToken (process.env.JWT_SECRET) ({expiresIn: 3600})
+
+// trace :: String -> a -> a
+export const trace = tag => x => {
+  console.log (tag, x)
+  return x
+}

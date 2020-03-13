@@ -36,5 +36,6 @@
     "eslint-plugin-react": "^7.14.3",
     "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.1"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
