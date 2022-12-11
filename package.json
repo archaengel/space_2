@@ -17,7 +17,7 @@
   "dependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "bcryptjs": "^2.4.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "fluture": "^11.0.2",
     "fluture-sanctuary-types": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
